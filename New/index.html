@@ -187,16 +187,7 @@ console.log("error 23");
 
 
 			function Victory(){
-        {
-  "response": {
-    "title": "300 изумрудов",
-    "price": 27,
-    "photo_url": "https://www.google.com/search?q=%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D0%BA%D0%B0&sxsrf=ALiCzsb75gO9dV53kAYXwYNgTmdw2KHocQ:1669819824817&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiT3fzLk9b7AhXrl4sKHUr0DXgQ_AUoAnoECAIQBA&biw=1920&bih=969&dpr=1#imgrc=XlIb7V8w5Qj-hM",
-    "discount": 3,
-    "item_id": "sale_item_1",
-    "expiration": 3600
-  }
-}
+        
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', // Всегда должно быть 'item'
@@ -206,6 +197,170 @@ vkBridge.send('VKWebAppShowOrderBox',
   .catch( (e) => {console.log('Ошибка!', e) });
   
       }
+	  
+	  
+	const express = require('express');
+const app = express();
+const md5 = require('md5');
+
+// ...
+
+// Обработчик POST-запросов, приходящих на адрес /purchase 
+app.post('/purchase', (request, response) => {
+
+  var requestData = '';
+  var requestParams = {};
+  let responseData;
+
+
+  // Получение данных
+  request.on('data', (chunk) => {
+      requestData += chunk;
+    })
+    .on('end', () => {
+
+      // Формируем список параметров
+      let s = String(requestData).split('&');
+      s.map((item) => {
+        let [k, v] = item.split('=');
+        // Декодируем строки.
+        // Код функции PHPUrlDecode() приведён ниже.
+        requestParams[k] = PHPUrlDecode(v);
+      });
+
+      // Проверка подписи
+      // Код функции calcSignature() приведён ниже.
+      if (calcSignature(requestParams) == requestParams.sig) {
+
+        // Обрабатываем запрос
+        switch (requestParams.notification_type) {
+          case "get_item":
+          case "get_item_test":
+            responseData = handleGetItem(requestParams);
+            break;
+          case "order_status_change":
+          case "order_status_change_test":
+            responseData = handleOrderStatusChange(requestParams);
+            break;
+        }
+      } else {
+        responseData = { // Ошибка подписи
+          error: {
+            error_code: 20,
+            error_msg: 'Несовпадение переданной и вычисленной подписи',
+            critical: true
+          }
+        }
+      }
+
+      // Отправляем ответ
+      s = JSON.stringify(responseData);
+      response.end(s);
+    });
+})
+
+// Вычисление подписи
+function calcSignature(params) {
+
+  const ACCESS_KEY = 'abcdEFGHji12345'; // Ключ доступа приложения
+
+  // Сортируем параметры
+  let keys = Object.keys(params);
+  keys.sort();
+
+  // Формируем строку из пар 'параметр=значение'
+  let str = '';
+  keys.map((item) => {
+    if (item != "sig") {
+      str += item + '=' + params[item];
+    }
+  });
+  str = str + ACCESS_KEY; // Добавляем ключ доступа
+
+  // Вычисляем подпись
+  let calculatedSignature = md5(str);
+
+  return calculatedSignature;
+}
+
+// Обработчик уведомления get_item
+function handleGetItem(params) {
+
+   let responseData
+   // Получаем информацию о товаре
+   let item = saleItems[params.item];
+  
+  // Возвращаем ответ
+  if (item) {
+    responseData = {
+        response: item
+    };
+  } else {
+    responseData = {
+      error: {
+        "error_code": 20, 
+        "error_msg": "Товара не существует",
+        "critical": true
+    }};
+  }
+
+  return responseData;
+}
+
+// Обработчик уведомления order_status_change
+function handleOrderStatusChange(params) {
+
+  let responseData;
+
+  switch(params.status) {
+    case 'chargeable':
+      // Предоставляем товар в приложении
+      // ... 
+
+      // Сохраняем информацию о заказе в приложении
+      // ...
+
+      // Формируем ответ
+      let appOrder = 1; // Идентификатор заказа в приложении
+
+      responseData = { 
+        response: {
+          order_id: params.order_id,
+          app_order_id: appOrder 
+      }};
+
+      break;
+
+    case 'refund': 
+      // Обрабатываем возврат
+      // ...
+      break;
+    default:
+        responseData = { 
+            error: {
+                error_code: 11,
+                error_msg: 'Ошибка в структуре данных',
+                critical: true
+            }};      
+  }
+
+  return responseData;
+}
+
+// Служебная функция для декодирования строк
+// из формата PHP URL-encoded
+function PHPUrlDecode(str){
+    return decodeURIComponent(
+      str.replace(/%21/g, '!')
+         .replace(/%27/g, '\'')
+         .replace(/%28/g, '(')
+         .replace(/%29/g, ')')
+         .replace(/%2A/g, '*')
+         .replace(/%7E/g, '~')
+         .replace(/\+/g, '%20'));
+}
+
+
 
 
             // platform

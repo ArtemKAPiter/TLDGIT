@@ -187,28 +187,15 @@ console.log("error 23");
 
 
 			function Victory(){
-        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
-          console.log(data);
-          unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
-		  
-		  
-		  
-		  vkBridge.send('VKWebAppShowOrderBox', { 
-  type: 'item',
-  item: 'item_id_123456'
+        
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', // Всегда должно быть 'item'
+    item: 'sale_item_1', // Идентификатор товара
   })
-  .then((data) => {
-    if (data.success) {
-      // Оплата голосами прошла успешно
-  }})
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
-
-
-		  
-		  
+  .then( (data) => {console.log('Покупка состоялась.', data) }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+  
       }
 
 

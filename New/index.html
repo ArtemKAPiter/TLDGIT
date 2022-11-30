@@ -168,7 +168,7 @@
             
                   
 				  function LoadVKBridge(){
-      bridge.send('VKWebAppInit')
+      vkBridge.send('VKWebAppInit')
   .then((data) => { 
     if (data.result) {
      console.log("Good");
@@ -190,6 +190,25 @@ console.log("error 23");
         vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
           console.log(data);
           unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
+		  
+		  
+		  
+		  vkBridge.send('VKWebAppShowOrderBox', { 
+  type: 'item',
+  item: 'item_id_123456'
+  })
+  .then((data) => {
+    if (data.success) {
+      // Оплата голосами прошла успешно
+  }})
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+
+
+		  
+		  
       }
 
 

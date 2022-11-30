@@ -187,11 +187,11 @@ console.log("error 23");
 
 
 			function Victory(){
-				window.alert("Victory!");
-				
-				
-				
-			}
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
+          console.log(data);
+          unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
+      }
+
 
             // platform
             window.getPlatformId = function() {

@@ -55,6 +55,7 @@
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
+		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -133,14 +134,14 @@
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/ICanDoit_v0.01.loader.js'
+                    unityLoader.src = 'Build/New.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/ICanDoit_v0.01.data',
-                                frameworkUrl: 'Build/ICanDoit_v0.01.framework.js',
-                                codeUrl: 'Build/ICanDoit_v0.01.wasm',
+                                dataUrl: 'Build/New.data',
+                                frameworkUrl: 'Build/New.framework.js',
+                                codeUrl: 'Build/New.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'ReallShin',
                                 productName: 'TowerOfMagic',
@@ -152,6 +153,9 @@
                             .then((unityInstance) => {
                                 window.unityInstance = unityInstance
                                 loadingOverlay.remove()
+								
+								LoadVKBridge();
+								
                                 canvas.focus()
                             })
                             .catch((error) => {
@@ -162,6 +166,32 @@
                 })
                 .catch(error => console.error(error))
             
+                  
+				  function LoadVKBridge(){
+      bridge.send('VKWebAppInit')
+  .then((data) => { 
+    if (data.result) {
+     console.log("Good");
+    } else {
+      console.log("error");
+    }
+  })
+  .catch((error) => {
+console.log("error 23");
+    console.log(error);
+  });
+
+
+             }
+
+
+
+			function Victory(){
+				window.alert("Victory!");
+				
+				
+				
+			}
 
             // platform
             window.getPlatformId = function() {

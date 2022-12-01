@@ -188,16 +188,12 @@ console.log("error 23");
 
 			function Victory(){
         
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', // Всегда должно быть 'item'
-    item: 'sale_item_1', // Идентификатор товара
-  })
-  .then( (data) => {console.log('Покупка состоялась.', data) }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-  
-      }
-	  
+vkBridge.send('showOrderBox', {type: 'item',item: 'moneta'});
+			}
+	    
+		
+
+
 
 
 

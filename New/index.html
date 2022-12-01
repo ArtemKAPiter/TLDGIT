@@ -28,7 +28,7 @@
                 align-items: center;
             }
             #icon {
-                max-width: 120px;
+                max-width: 240px;
                 border-radius: 20px;
                 margin-bottom: 20px;
             }
@@ -51,7 +51,7 @@
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
-            <img id="icon" src="./C:\Users\Nikita\Desktop\212022\2011\ICanDoIt\Assets\ICON_FOR_STORE.png" />
+            <img id="icon" src="ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
@@ -188,10 +188,40 @@ console.log("error 23");
 
 			function Victory(){
         
-vkBridge.send('showOrderBox', {type: 'item',item: 'moneta'});
-			}
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', // Всегда должно быть 'item'
+    item: 'sale_item_1', // Идентификатор товара
+  })
+  .then( (data) => {console.log('Покупка состоялась.', data) }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+  
+      }
 	    
 		
+  function handleGetItem(params) {
+
+   let responseData
+   // Получаем информацию о товаре
+   let item = saleItems[params.item];
+  
+  // Возвращаем ответ
+  if (item) {
+    responseData = {
+        response: item
+    };
+  } else {
+    responseData = {
+      error: {
+        "error_code": 20, 
+        "error_msg": "Товара не существует",
+        "critical": true
+    }};
+  }
+
+  return responseData;
+}
+
 
 
 

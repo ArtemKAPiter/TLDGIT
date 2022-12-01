@@ -100,6 +100,7 @@
                 if (progressBarFillingInterval !== null) {
                     return
                 }
+				
 
                 let currentPercent = 90
                 progressBarFill.style.width = `${ currentPercent }%`
@@ -181,6 +182,11 @@ console.log("error 23");
     console.log(error);
   });
 
+vkBridge.send('VKWebAppGetAds')
+  .then((bannerInfo) => { 
+    // Передать данные баннера (параметр bannerInfo) для отрисовки
+  })
+  .catch((error) => { console.log(error); });
 
              }
 

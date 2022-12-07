@@ -191,25 +191,25 @@ vkBridge.send('VKWebAppGetAds')
 
 
 
-			function BuyMoney(_itemID){
+			function BuyMoney(){
         
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: _itemID, 
+    item: 'sale_item_10', 
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity(_itemID);
+	  SendMessageToUnity();
 	  }) 
   
   .catch( (e) => {console.log('Ошибка!', e) });
   
       }
 	    
-		function SendMessageToUnity(_itemID){	
+		function SendMessageToUnity(){	
 			console.log("Sending message to Unity: ");
-			unityInstance.SendMessage("BuyMoneyVK", "GetMoney", _itemID);
+			unityInstance.SendMessage("BuyMoneyVK", "GetMoney", );
 		}
 		
   function handleGetItem(params) {

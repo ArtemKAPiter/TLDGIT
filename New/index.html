@@ -195,12 +195,12 @@ vkBridge.send('VKWebAppGetAds')
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_10', 
 	console.log('sale_item_10', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity10();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -210,12 +210,12 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_15', 
 	console.log('sale_item_15', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity15();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -225,12 +225,12 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_25', 
 	console.log('sale_item_25', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity25();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -240,12 +240,12 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_45', 
 	console.log('sale_item_45', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity45();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -255,12 +255,12 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_80', 
 	console.log('sale_item_80', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity80();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -270,12 +270,12 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_140', 
 	console.log('sale_item_140', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnity140();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -285,17 +285,19 @@ vkBridge.send('VKWebAppShowOrderBox',
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: , 
+    item: 'sale_item_noAds', 
 	console.log('sale_item_noAds', data) ,
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity();
+	  SendMessageToUnityNoAds();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
 		
-		
+		function SendMessageToUnityNoAds(){
+		unityInstance.SendMessage("BuyMoneyVK","GetMoney","sale_item_10");
+		}
 		
 		
 		

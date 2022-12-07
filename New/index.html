@@ -191,7 +191,7 @@ vkBridge.send('VKWebAppGetAds')
 
 
 
-			function BuyMoney(string _itemID){
+			function BuyMoney( _itemID){
         
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
@@ -207,7 +207,7 @@ vkBridge.send('VKWebAppShowOrderBox',
   
       }
 	    
-		function SendMessageToUnity(string _itemID){	
+		function SendMessageToUnity( _itemID){	
 			console.log("Sending message to Unity: ");
 			unityInstance.SendMessage("BuyMoneyVK", "GetMoney", _itemID);
 		}

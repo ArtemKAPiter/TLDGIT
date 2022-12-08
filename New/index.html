@@ -289,10 +289,16 @@ vkBridge.send('VKWebAppShowOrderBox',
       }
 		
 		function SendMessageToUnity10(){
-		 window.unityInstance.SendMessage('Bridge', 'Add10Item')
+			try{
+			windowunityInstance.SendMessage('Bridge','Add10Item');
+			}
 		}
 		
-		
+		function SendMessageToUnity11(){
+			try{
+				windowunityInstance.SendMessage("Bridge","Add10Item");
+		}
+		}
 		
 		
 		

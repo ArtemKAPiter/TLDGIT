@@ -200,6 +200,7 @@ vkBridge.send('VKWebAppShowOrderBox',
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
 	  SendMessageToUnity10();
+	  SendMessageToUnity11();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
@@ -292,11 +293,17 @@ vkBridge.send('VKWebAppShowOrderBox',
 			try{
 			windowunityInstance.SendMessage('Bridge','Add10Item');
 			}
+			catch{
+		console.log('Ошибка!') 
+		}
 		}
 		
 		function SendMessageToUnity11(){
 			try{
 				windowunityInstance.SendMessage("Bridge","Add10Item");
+		}
+		catch{
+		console.log('Ошибка!') 
 		}
 		}
 		

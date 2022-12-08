@@ -28,8 +28,8 @@
                 align-items: center;
             }
             #icon {
-                max-width: 240px;
-                border-radius: 20px;
+                max-width: 120px;
+                border-radius: 10px;
                 margin-bottom: 20px;
             }
             #progress-bar {
@@ -51,7 +51,7 @@
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
-            <img id="icon" src="ICON_FOR_STORE.png" />
+            <img id="icon" src="./icon.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
@@ -99,7 +99,6 @@
                 if (progressBarFillingInterval !== null) {
                     return
                 }
-				
 
                 let currentPercent = 90
                 progressBarFill.style.width = `${ currentPercent }%`
@@ -135,6 +134,9 @@
 
                     let unityLoader = document.createElement('script')
                     unityLoader.src = 'Build/New.loader.js'
+					
+					var myGameInstance = null;
+
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
@@ -152,6 +154,8 @@
                             onUnityLoadingProgressChanged)
                             .then((unityInstance) => {
                                 window.unityInstance = unityInstance
+								myGameInstance = unityInstance;
+
                                 loadingOverlay.remove()
 								
 								LoadVKBridge();
@@ -166,8 +170,8 @@
                 })
                 .catch(error => console.error(error))
             
-                  
-				  function LoadVKBridge(){
+
+function LoadVKBridge(){
       vkBridge.send('VKWebAppInit')
   .then((data) => { 
     if (data.result) {
@@ -186,12 +190,10 @@ vkBridge.send('VKWebAppGetAds')
     // Передать данные баннера (параметр bannerInfo) для отрисовки
   })
   .catch((error) => { console.log(error); });
-
              }
-
-
-
-			function GetItem10(){ 
+			 
+			 
+		function GetItem10(){ 
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
@@ -200,17 +202,15 @@ vkBridge.send('VKWebAppShowOrderBox',
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
 	  SendMessageToUnity10();
-	  SendMessageToUnity11();
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
-	    
-		
-		function GetItem15(){ 
+            
+function GetItem15(){ 
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 
-    item: 'sale_item_15', 
+    item: 'sale_item_10', 
   })
   .then( (data) => {
 	  console.log('Покупка состоялась.', data) 
@@ -218,133 +218,18 @@ vkBridge.send('VKWebAppShowOrderBox',
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
-	  
-	  
-	  function GetItem25(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_25', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity25();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
+			
+			   
+			
+
+
+			 function SendMessageToUnity10(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
       }
-	  
-	  
-	  function GetItem45(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_45', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity45();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  
-	  function GetItem80(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_80', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity80();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  
-	  function GetItem140(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_140', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity140();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  
-	  function GetItemNoAds(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_noAds', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnityNoAds();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-		
-		function SendMessageToUnity10(){
-			try{
-			windowunityInstance.SendMessage('Bridge','Add10Item');
-			}
-			catch{
-		console.log('Ошибка!') 
-		}
-		}
-		
-		function SendMessageToUnity11(){
-			try{
-				windowunityInstance.SendMessage("Bridge","Add10Item");
-		}
-		catch{
-		console.log('Ошибка!') 
-		}
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-  function handleGetItem(params) {
-
-   let responseData
-   // Получаем информацию о товаре
-   let item = saleItems[params.item];
-  
-  // Возвращаем ответ
-  if (item) {
-    responseData = {
-        response: item
-    };
-  } else {
-    responseData = {
-      error: {
-        "error_code": 20, 
-        "error_msg": "Товара не существует",
-        "critical": true
-    }};
-  }
-
-  return responseData;
-}
-
-
-
-
+			
+			 function SendMessageToUnity15(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney15');
+      }   
 
 
             // platform

@@ -49,12 +49,16 @@
         </style>
     </head>
     <body>
-        <canvas id="canvas" class="fullscreen"></canvas>
+        <canvas id="canvas" class="fullscreen" onclick = "gameInstance.SetFullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
             <img id="icon" src="ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
+		
+		var gameInstance = UnityLoader.instantiate("gameContainer","Build/sample.json , {onProgress: UnityProgress});
+		
+		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -288,10 +292,10 @@ vkBridge.send('VKWebAppShowOrderBox',
   .catch( (e) => {console.log('Ошибка!', e) });
       }
 		
-		function SendMessageToUnity10(){
-		unityInstance.SendMessage("BuyMoneyVK","GetMoney","sale_item_10");
-		}
 		
+		function SendMessageToUnity10(){
+                    gameInstance.SendMessage("BuyMoneyVK","GetMoney");    
+		}
 		
 		
 		

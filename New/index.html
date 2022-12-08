@@ -55,9 +55,6 @@
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
-		
-		
-		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -291,14 +288,15 @@ vkBridge.send('VKWebAppShowOrderBox',
   .catch( (e) => {console.log('Ошибка!', e) });
       }
 		
+		function SendMessageToUnity10(){
+		 window.unityInstance.SendMessage('Bridge', 'Add10Item')
+		}
 		
-	
 		
-		function SendMessageToUnity10(name, value) {
-                if (window.unityInstance !== null) {
-                    window.unityInstance.SendMessage('Bridge', 'Add10Item')
-                }
-            }
+		
+		
+		
+		
 		
 		
 		

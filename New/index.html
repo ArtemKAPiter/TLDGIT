@@ -49,14 +49,13 @@
         </style>
     </head>
     <body>
-        <canvas id="canvas" class="fullscreen" onclick = "gameInstance.SetFullscreen"></canvas>
+        <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
             <img id="icon" src="ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
 		
-		var gameInstance = UnityLoader.instantiate("gameContainer","Build/sample.json , {onProgress: UnityProgress});
 		
 		
         <script>

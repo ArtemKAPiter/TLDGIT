@@ -293,14 +293,13 @@ vkBridge.send('VKWebAppShowOrderBox',
       }
 		
 		
-		function SendMessageToUnity10(){
-                    gameInstance.SendMessage("BuyMoneyVK","GetMoney");    
-		}
+	
 		
-		
-		
-		
-		
+		function SendMessageToUnity10(name, value) {
+                if (window.unityInstance !== null) {
+                    window.unityInstance.SendMessage('Bridge', 'Add10Item')
+                }
+            }
 		
 		
 		

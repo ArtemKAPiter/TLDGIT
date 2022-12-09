@@ -48,6 +48,15 @@
             }
         </style>
     </head>
+	
+	
+	<head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
+	<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+
+	
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
@@ -56,67 +65,9 @@
         </div>
         <script src="./instant-games-bridge.js"></script>
 		
-	
+		<script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     
-	
-	<script src="./instant-games-bridge-vk-banner-extension.js"></script>
-<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-<script>
-    vkBridge
-        .send('VKWebAppInit')
-        .then(() => {
-
-            // show banner
-            vkBridge
-                .send('VKWebAppGetAds')
-                .then(data => {
-                    let position = 'top' // Supported values: top, bottom. Default: bottom.
-                    bridgeExtensions.vk.banner.show(data, position)
-                })
-
-            // hide banner
-            bridgeExtensions.vk.banner.hide()
-        })
-</script>
-
-
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import '@vkontakte/vkui/dist/vkui.css'
-import { FixedLayout, PromoBanner } from '@vkontakte/vkui'
-
-if (!window.bridgeExtensions) {
-    window.bridgeExtensions = { }
-}
-
-if (!window.bridgeExtensions.vk) {
-    window.bridgeExtensions.vk = { }
-}
-
-window.bridgeExtensions.vk.banner = {
-    version: '1.0.0'
-}
-
-window.bridgeExtensions.vk.banner.container = document.createElement('div')
-window.bridgeExtensions.vk.banner.container.id = 'vk-banner-container'
-document.body.appendChild(window.bridgeExtensions.vk.banner.container)
-
-window.bridgeExtensions.vk.banner.reactApp = ReactDOM.createRoot(window.bridgeExtensions.vk.banner.container)
-
-window.bridgeExtensions.vk.banner.hide = function() {
-    window.bridgeExtensions.vk.banner.container.style.display = 'none'
-}
-
-window.bridgeExtensions.vk.banner.show = function(data, position) {
-    if (!position) {
-        position = 'bottom'
-    }
-
-    window.bridgeExtensions.vk.banner.reactApp.render(<React.StrictMode><FixedLayout vertical={position}><PromoBanner bannerData={ data } onClose={ () => window.bridgeExtensions.vk.banner.hide() }/></FixedLayout></React.StrictMode>)
-    window.bridgeExtensions.vk.banner.container.style.display = 'block'
-}
-	
 		
 		
         <script>
@@ -264,8 +215,13 @@ vkBridge.send('VKWebAppGetAds')
                 }).catch((error) => {
 					console.log(error);
 					});
+
+  
+  
              }
-	
+		
+
+
 	function LoadVKBannerPhone(){ 
   
             vkBridge.send('VKWebAppShowBannerAd', {

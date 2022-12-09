@@ -57,6 +57,7 @@
         <script src="./instant-games-bridge.js"></script>
 		
 		<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     
 		
 		
@@ -527,8 +528,8 @@ vkBridge.send('VKWebAppShowOrderBox',
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(JSON.parse(options))
             }
 
-            window.showBanner = function(options) {
-                bridge.advertisement.showBanner(JSON.parse(options))
+            window.showBanner = function() {
+                bridge.advertisement.showBanner()
                     .then(() => {
                         sendMessageToUnity('OnShowBannerCompleted', 'true')
                     })

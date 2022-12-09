@@ -201,9 +201,7 @@ vkBridge.send('VKWebAppGetAds')
 
 
 	function LoadVKBannerPhone(){ 
-  vkBridge.send('VKWebAppInit')
-        .then(() => {
-            // show banner
+  
             vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
@@ -213,8 +211,8 @@ vkBridge.send('VKWebAppGetAds')
 
             // hide banner
             //bridgeExtensions.vk.banner.hide()
-        })
-      }
+        }
+      
 
 		
 			 

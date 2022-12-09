@@ -28,8 +28,8 @@
                 align-items: center;
             }
             #icon {
-                max-width: 240px;
-                border-radius: 20px;
+                max-width: 250px;
+                border-radius: 10px;
                 margin-bottom: 20px;
             }
             #progress-bar {
@@ -44,29 +44,20 @@
                 border-radius: 3px;
                 width: 0%;
                 height: 100%;
-                background: #FF9A00;
+                background: #00e5ff;
             }
         </style>
     </head>
-	
-	<head>
-    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
-</head>
-<body></body>
-<script src="./instant-games-bridge-vk-banner-extension.js"></script>
-
-
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
-            <img id="icon" src="ICON_FOR_STORE.png" />
+            <img id="icon" src="./ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
 		
-		<script>
-		var unityInstanceVK = UnityLoader.instantiate("unityContainer","Build/_Build.json",{onProgress: UnityProgress});
-		
+		<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+    
 		
 		
         <script>
@@ -113,7 +104,6 @@
                 if (progressBarFillingInterval !== null) {
                     return
                 }
-				
 
                 let currentPercent = 90
                 progressBarFill.style.width = `${ currentPercent }%`
@@ -138,7 +128,6 @@
                 canvas.focus()
             })
 
-var myGameInstance = null;
 
             // initialization
             bridge
@@ -150,6 +139,9 @@ var myGameInstance = null;
 
                     let unityLoader = document.createElement('script')
                     unityLoader.src = 'Build/New.loader.js'
+					
+					var myGameInstance = null;
+
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
@@ -167,11 +159,12 @@ var myGameInstance = null;
                             onUnityLoadingProgressChanged)
                             .then((unityInstance) => {
                                 window.unityInstance = unityInstance
+								myGameInstance = unityInstance;
+
                                 loadingOverlay.remove()
 								
 								LoadVKBridge();
-								myGameInstance = unityInstance;
-
+								
                                 canvas.focus()
                             })
                             .catch((error) => {
@@ -182,10 +175,6 @@ var myGameInstance = null;
                 })
                 .catch(error => console.error(error))
             
-                  
-            
-			
-			
 
 function LoadVKBridge(){
       vkBridge.send('VKWebAppInit')
@@ -201,9 +190,49 @@ console.log("error 23");
     console.log(error);
   });
 
-    }
+vkBridge.send('VKWebAppGetAds')
+  .then((bannerInfo) => { 
+    // Передать данные баннера (параметр bannerInfo) для отрисовки
+  })
+  .catch((error) => { console.log(error); });
+  
+  
+  vkBridge.send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'top' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					console.log("Banner Loaded");
+                }).catch((error) => {
+					console.log(error);
+					});
+
+  
+  
+             }
 		
 
+
+	function LoadVKBannerPhone(){ 
+  
+            vkBridge.send('VKWebAppShowBannerAd', {
+  banner_location: 'bottom'
+  })
+ .then((data) => { 
+    if (data.result) {
+      console.log("БаннеРкА");
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+
+
+        }
+      
+
+		
+			 
 		function GetItem10(){ 
 vkBridge.send('VKWebAppShowOrderBox', 
   { 

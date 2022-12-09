@@ -37,7 +37,6 @@
                 width: 90%;
                 max-width: 250px;
                 height: 20px;
-				position: bottom; 
                 background: #242424;
                 padding: 5px;
             }
@@ -45,7 +44,7 @@
                 border-radius: 3px;
                 width: 0%;
                 height: 100%;
-                background: #CD5C5C;
+                background: #FF9A00;
             }
         </style>
     </head>
@@ -194,31 +193,132 @@ vkBridge.send('VKWebAppGetAds')
              }
 			 
 			 
-		function GetItem(_itemId){ 
-			vkBridge.send('VKWebAppShowOrderBox', 
-			  { 
-				type: 'item', 
-				item: _itemId, 
-			  })
-			  .then( (data) => {
-				  console.log('Покупка состоялась.', data) 
-				  SendMessageToUnity(_itemId);
-				  }) 
-			  .catch( (e) => {console.log('Ошибка!', e) });
-				  }
+		function GetItem10(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_10', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity10();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+            
+function GetItem15(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_15', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity15();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
 	  
-	
+	  function GetItem25(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_25', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity25();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem45(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_45', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity45();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem80(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_80', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity80();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem140(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_140', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity140();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItemNoAds(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_noAds', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageGetItemNoAds();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
 			
 			   
 			
 
 
-			 function SendMessageToUnity(_itemId){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney' , _itemId);
+			 function SendMessageToUnity10(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
       }
 			
-			
-      
+			 function SendMessageToUnity15(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney15');
+      }   
+	  
+	  function SendMessageToUnity25(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney25');
+      }
+	  
+	  function SendMessageToUnity45(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney45');
+      }
+	  
+	  function SendMessageToUnity80(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney80');
+      }
+	  
+	  function SendMessageToUnity140(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney140');
+      }
+	  
+	  function SendMessageGetItemNoAds(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'NoAds');
+      }
 
 
             // platform

@@ -58,23 +58,7 @@
 		
 		<script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-<script>
-    vkBridge
-        .send('VKWebAppInit')
-        .then(() => {
-
-            // show banner
-            vkBridge
-                .send('VKWebAppGetAds')
-                .then(data => {
-                    let position = 'top' // Supported values: top, bottom. Default: bottom.
-                    bridgeExtensions.vk.banner.show(data, position)
-                })
-
-            // hide banner
-            bridgeExtensions.vk.banner.hide()
-        })
-</script>
+    
 		
 		
         <script>
@@ -213,7 +197,26 @@ vkBridge.send('VKWebAppGetAds')
   })
   .catch((error) => { console.log(error); });
              }
-			 
+		
+
+
+	function LoadVKBannerPhone(){ 
+  vkBridge.send('VKWebAppInit')
+        .then(() => {
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+                })
+
+            // hide banner
+            //bridgeExtensions.vk.banner.hide()
+        })
+      }
+
+		
 			 
 		function GetItem10(){ 
 vkBridge.send('VKWebAppShowOrderBox', 

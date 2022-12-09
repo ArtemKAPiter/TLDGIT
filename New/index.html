@@ -51,7 +51,7 @@
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
-            <img id="icon" src="./icon.png" />
+            <img id="icon" src="./ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
@@ -218,6 +218,75 @@ vkBridge.send('VKWebAppShowOrderBox',
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
+	  
+	  function GetItem25(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_25', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity25();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem45(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_45', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity45();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem80(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_80', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity80();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem140(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_140', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity140();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItemNoAds(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_noAds', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageGetItemNoAds();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
 			
 			   
 			
@@ -230,6 +299,26 @@ vkBridge.send('VKWebAppShowOrderBox',
 			 function SendMessageToUnity15(){ 
          unityInstance.SendMessage('BuyMoneyVK', 'GetMoney15');
       }   
+	  
+	  function SendMessageToUnity25(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney25');
+      }
+	  
+	  function SendMessageToUnity45(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney45');
+      }
+	  
+	  function SendMessageToUnity80(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney80');
+      }
+	  
+	  function SendMessageToUnity140(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney140');
+      }
+	  
+	  function SendMessageGetItemNoAds(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'NoAds');
+      }
 
 
             // platform

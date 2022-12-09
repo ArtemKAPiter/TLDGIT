@@ -202,15 +202,20 @@ vkBridge.send('VKWebAppGetAds')
 
 	function LoadVKBannerPhone(){ 
   
-            vkBridge
-                .send('VKWebAppGetAds')
-                .then(data => {
-                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
-                    bridgeExtensions.vk.banner.show(data, position)
-                })
+            vkBridge.send('VKWebAppShowBannerAd', {
+  banner_location: 'bottom'
+  })
+ .then((data) => { 
+    if (data.result) {
+      console.log("БаннеРкА");
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
 
-            // hide banner
-            //bridgeExtensions.vk.banner.hide()
+
         }
       
 

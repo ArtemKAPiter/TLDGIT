@@ -215,26 +215,7 @@ function LoadVKBridge(){
 console.log("error 23");
     console.log(error);
   });
-
-vkBridge.send('VKWebAppGetAds')
-  .then((bannerInfo) => { 
-    // Передать данные баннера (параметр bannerInfo) для отрисовки
-  })
-  .catch((error) => { console.log(error); });
-  
-  
-  vkBridge.send('VKWebAppGetAds')
-                .then(data => {
-                    let position = 'top' // Supported values: top, bottom. Default: bottom.
-                    bridgeExtensions.vk.banner.show(data, position)
-					console.log("Banner Loaded");
-                }).catch((error) => {
-					console.log(error);
-					});
-
-  
-  
-             }
+}
 		
 
 

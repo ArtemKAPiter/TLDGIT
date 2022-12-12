@@ -224,21 +224,34 @@ vkBridge.send('VKWebAppGetAds')
 		function LoadVkBanner()
 		{
 vkBridge
-.send('VKWebAppGetAds')
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
                 .then(data => {
                     let position = 'top' // Supported values: top, bottom. Default: bottom.
                     bridgeExtensions.vk.banner.show(data, position)
                 })
 
+        })
         }
 		
 		function HideVkBanner(){
             vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
                     let position = 'top' // Supported values: top, bottom. Default: bottom.
-                    bridgeExtensions.vk.banner.hide()
+                                bridgeExtensions.vk.banner.hide()
+
                 })
+        })
         }
 		
       

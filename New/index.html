@@ -67,7 +67,7 @@
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     
-		
+
 		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -76,6 +76,8 @@
                 meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
+
+
 
             let canvas = document.getElementById('canvas')
             let loadingOverlay = document.getElementById('loading-overlay')
@@ -236,9 +238,6 @@ vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
                                 bridgeExtensions.vk.banner.hide()
-								console.log('Баннера нету.', data) 
-								canvas.style.width  = '100%'
-					            canvas.style.height = '100%';
                 })
         })
         }

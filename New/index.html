@@ -59,10 +59,14 @@
 
 
           </head>
+
+         <head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
 <body></body>
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
- <script>
+<script>
     vkBridge
         .send('VKWebAppInit')
         .then(() => {
@@ -75,6 +79,8 @@
                     bridgeExtensions.vk.banner.show(data, position)
                 })
 
+            // hide banner
+            bridgeExtensions.vk.banner.hide()
         })
 </script>
     

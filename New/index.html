@@ -56,8 +56,13 @@
         </div>
         <script src="./instant-games-bridge.js"></script>
 		
-		<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+
+
+          </head>
+<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+ 
     
 		
 		
@@ -213,23 +218,29 @@ vkBridge.send('VKWebAppGetAds')
 		
 
 
-	function LoadVKBannerPhone(){ 
-  
-            vkBridge.send('VKWebAppShowBannerAd', {
-  banner_location: 'bottom'
-  })
- .then((data) => { 
-    if (data.result) {
-      console.log("БаннеРкА");
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
 
+		
+		
+		function LoadVkBanner()
+		{
+vkBridge
+.send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'top' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+                })
 
         }
+		
+		function HideVkBanner(){
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'top' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.hide()
+                })
+        }
+		
       
 
 		
@@ -528,8 +539,8 @@ vkBridge.send('VKWebAppShowOrderBox',
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(JSON.parse(options))
             }
 
-            window.showBanner = function() {
-                bridge.advertisement.showBanner()
+            window.showBanner = function(options) {
+                bridge.advertisement.showBanner(JSON.parse(options))
                     .then(() => {
                         sendMessageToUnity('OnShowBannerCompleted', 'true')
                     })

@@ -232,6 +232,7 @@ vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
                     let position = 'top' // Supported values: top, bottom. Default: bottom.
+					console.log('Баннер есть.', data) 
                     bridgeExtensions.vk.banner.show(data, position)
                 })
 
@@ -249,6 +250,7 @@ vkBridge
                 .then(data => {
                     let position = 'top' // Supported values: top, bottom. Default: bottom.
                                 bridgeExtensions.vk.banner.hide()
+								console.log('Баннера нету.', data) 
 
                 })
         })

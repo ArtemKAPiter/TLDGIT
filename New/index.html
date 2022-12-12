@@ -137,7 +137,6 @@
                 canvas.focus()
             })
 
-
             // initialization
             bridge
                 .initialize()
@@ -202,8 +201,6 @@ console.log("error 23");
 		
 
 
-
-		
 		
 		function LoadVkBanner()
 		{
@@ -217,6 +214,9 @@ vkBridge
                 .then(data => {
                     let position = 'bottom' // Supported values: top, bottom. Default: bottom.
                     bridgeExtensions.vk.banner.show(data, position)
+					
+					canvas.style.width  = '100%'
+					canvas.style.height = '80%';
                 })
 
             // hide banner
@@ -235,6 +235,8 @@ vkBridge
                 .then(data => {
                                 bridgeExtensions.vk.banner.hide()
 								console.log('Баннера нету.', data) 
+								canvas.style.width  = '100%'
+					            canvas.style.height = '100%';
                 })
         })
         }

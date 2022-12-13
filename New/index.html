@@ -220,14 +220,16 @@ vkBridge
                     let position = 'bottom' // Supported values: top, bottom. Default: bottom.
                     bridgeExtensions.vk.banner.show(data, position)
 					
-					document.getElementById("vk-banner-container").style.zoom = "0.75";
 					
 					
 					
 					
+					 document.getElementById("vk-banner-container").style.zoom = "0.5";
 					
 					window.alert(canvas.height + "px");
-					window.alert(document.getElementById("vk-banner-container").style.height + "px");
+					
+					
+					
                 })
 
             // hide banner
@@ -255,6 +257,11 @@ vkBridge
 		
 			 
 		function GetItem10(){ 
+		
+		
+		window.alert(document.getElementById("vk-banner-container").height + "px");
+		
+		
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 

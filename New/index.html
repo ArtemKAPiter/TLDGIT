@@ -67,7 +67,7 @@
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     
-
+		
 		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -77,11 +77,7 @@
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
 
-             
-
-            let canvas = document.getElementById('canvas')
-			
-			
+            
 			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
@@ -221,14 +217,12 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					
+					let canvas = document.getElementById('canvas')
+					let h = canvas.height + "px"; 
 					
-					 
-					 
-					window.alert(canvas.height + "px");
-					window.alert(vkBannerHeigth);
-					
-					window.alert(canvas.lineHeight + "px");
-					lineHeight
+					let newHeight = 100 - (110*100/h);
+
+					canvas.style.height = 'newHeight%';
 					
                 })
 
@@ -248,6 +242,9 @@ vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
                                 bridgeExtensions.vk.banner.hide()
+								console.log('Баннера нету.', data) 
+								canvas.style.width  = '100%'
+					            canvas.style.height = '100%';
                 })
         })
         }
@@ -257,11 +254,6 @@ vkBridge
 		
 			 
 		function GetItem10(){ 
-		
-		let vkBanner = document.getElementById("vk-banner-container");
-					 vkBanner.style.zoom = "0.5";
-					 let vkBannerHeigth = vkBanner.height+ "px";
-		
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
     type: 'item', 

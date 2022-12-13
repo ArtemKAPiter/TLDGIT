@@ -82,6 +82,11 @@
 			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
+			
+			
+			canvas.style.height = '93%';
+
+			
 
             const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
@@ -220,9 +225,8 @@ vkBridge
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
 					
 					alert(document.getElementById("vk-banner-container").clientHeight);
-			
+			              
 })
-            bridgeExtensions.vk.banner.hide()
         })
         }
 		

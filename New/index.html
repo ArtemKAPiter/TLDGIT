@@ -77,8 +77,8 @@
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
 
-            
-			
+
+			alert(canvas.height);
 			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
@@ -218,16 +218,21 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
-			
-            canvas.style.height = (canvas.height - 55) + "px";
-					
-                })
-
-            // hide banner
+               setTimeout(sayHi, 3000);
+})
+// hide banner
             bridgeExtensions.vk.banner.hide()
         })
-		
         }
+		
+		
+		function sayHi() {
+        alert(document.getElementById("vk-banner-container").style.height);
+		alert(document.getElementById("vk-banner-container").height);
+		alert(document.getElementById("vk-banner-container").style.lineHeight);
+		alert(document.getElementById("vk-banner-container").lineHeight);
+                        }
+		
 		
 		function HideVkBanner(){
             vkBridge

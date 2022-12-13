@@ -77,11 +77,11 @@
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
 
-
+    let loadingOver = document.getElementById('loading-overlay')
+    
 			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
-			alert(loadingOverlay.offsetHeight)
 
             const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
@@ -218,11 +218,10 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
-					getHeight();
 					
+					alert(document.getElementById("vk-banner-container").clientHeight);
 			
 })
-// hide banner
             bridgeExtensions.vk.banner.hide()
         })
         }
@@ -233,15 +232,7 @@ vkBridge
 			alert(loadingOver.offsetHeight)
                         }
 						
-						function getHeight(){
-    let loadingOver = document.getElementById('vk-banner-container')
-    loadingOver.style.visibility = "hidden";
-    document.body.appendChild(loadingOver);
-    var height = loadingOver.offsetHeight + 0;
-    document.body.removeChild(loadingOver);
-    loadingOver.style.visibility = "visible";
-    alert(loadingOver.offsetHeight);
-}
+
 		
 		
 		function HideVkBanner(){

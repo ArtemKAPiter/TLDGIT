@@ -218,11 +218,8 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					getHeight();
 					
-					let progressBarFill = document.getElementById('vk-banner-container')
-			
-			let loadingOver = document.getElementById('vk-banner-container')
-			alert(loadingOver.offsetHeight)
 			
 })
 // hide banner
@@ -235,6 +232,16 @@ vkBridge
         let loadingOver = document.getElementById('vk-banner-container')
 			alert(loadingOver.offsetHeight)
                         }
+						
+						function getHeight(){
+    let loadingOver = document.getElementById('vk-banner-container')
+    loadingOver.style.visibility = "hidden";
+    document.body.appendChild(loadingOver);
+    var height = loadingOver.offsetHeight + 0;
+    document.body.removeChild(loadingOver);
+    loadingOver.style.visibility = "visible";
+    alert(loadingOver.offsetHeight);
+}
 		
 		
 		function HideVkBanner(){

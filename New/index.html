@@ -79,6 +79,7 @@
 
             
 			
+			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
 
@@ -216,13 +217,9 @@ vkBridge
                     let position = 'bottom' // Supported values: top, bottom. Default: bottom.
                     bridgeExtensions.vk.banner.show(data, position)
 					
-					
-					let canvas = document.getElementById('canvas')
-					let h = canvas.height + "px"; 
-					
-					let newHeight = 100 - (110*100/h);
-
-					canvas.style.height = 'newHeight%';
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+			
+            canvas.style.height = (canvas.height - 55) + "px";
 					
                 })
 

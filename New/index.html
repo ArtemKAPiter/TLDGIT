@@ -222,9 +222,7 @@ vkBridge
 					
 					
 					
-					 let vkBanner = document.getElementById("vk-banner-container");
-					 vkBanner.style.zoom = "0.5";
-					 let vkBannerHeigth = vkBanner.height+ "px";
+					 
 					 
 					window.alert(canvas.height + "px");
 					window.alert(vkBannerHeigth);
@@ -259,8 +257,10 @@ vkBridge
 		
 			 
 		function GetItem10(){ 
-		window.alert(document.getElementById("vk-banner-container").innerHeight + "px");
 		
+		let vkBanner = document.getElementById("vk-banner-container");
+					 vkBanner.style.zoom = "0.5";
+					 let vkBannerHeigth = vkBanner.height+ "px";
 		
 vkBridge.send('VKWebAppShowOrderBox', 
   { 

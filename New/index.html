@@ -78,10 +78,10 @@
             }
 
 
-			alert(canvas.height);
 			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
+			alert(loadingOverlay.offsetHeight)
 
             const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
@@ -218,7 +218,12 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
-               setTimeout(sayHi, 3000);
+					
+					let progressBarFill = document.getElementById('vk-banner-container')
+			
+			let loadingOver = document.getElementById('vk-banner-container')
+			alert(loadingOver.offsetHeight)
+			
 })
 // hide banner
             bridgeExtensions.vk.banner.hide()
@@ -227,12 +232,8 @@ vkBridge
 		
 		
 		function sayHi() {
-        alert(document.getElementById("div").style.height);
-		alert(document.getElementById("div").height);
-		alert(document.getElementById("div").style.lineHeight);
-		alert(document.getElementById("div").lineHeight);
-		alert(document.getElementById("div").offsetHeight);
-		alert(document.getElementById("div").style.offsetHeight);
+        let loadingOver = document.getElementById('vk-banner-container')
+			alert(loadingOver.offsetHeight)
                         }
 		
 		

@@ -77,9 +77,12 @@
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
 
-
+             
 
             let canvas = document.getElementById('canvas')
+			
+			
+			
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
 
@@ -216,14 +219,15 @@ vkBridge
                 .then(data => {
                     let position = 'bottom' // Supported values: top, bottom. Default: bottom.
                     bridgeExtensions.vk.banner.show(data, position)
-					canvas.height = '100%'
-					let h = canvas.height - 48; 
 					
-				let bannerHeigth = document.getElementById("vk-banner-container").height;
-                 let bannerHeigth1 = document.getElementById("vk-banner-container").style.height;
 					
-					window.alert("высота "+bannerHeigth + bannerHeigth1);
-					canvas.height = h +"px";
+					
+                    let banner = document.getElementById("vk-banner-container");
+					
+					
+					
+					window.alert(canvas.height + "px");
+					window.alert(banner.height + "px");
                 })
 
             // hide banner

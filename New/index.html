@@ -179,42 +179,18 @@
 			var ratio = width / height;
 
 			//alert("ratio: "+ratio+"\n"+ (window.innerHeight * ratio));
-
-			if (window.innerWidth > window.innerHeight) // десктоп
-			{
-				const wd = (window.innerHeight/9)*16;
-
-				//canvas.style.width  = Math.ceil(window.innerHeight*0.55)+"px";
-				canvas.style.width  = wd+"px";
+			
+			
+			canvas.style.width  = '100%';
 				canvas.style.height = '100%';
 
-				loadingCanvas.style.width  = wd+"px";
+				loadingCanvas.style.width  = '100%';
 				loadingCanvas.style.height = '100%';
 
-				canvasSpine.style.width  = wd+"px";
+				canvasSpine.style.width  = '100%';
 				canvasSpine.style.height = '100%';
-			}else{ // портрет
-				if (ratio < 0.55)
-				{
-					canvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvas.style.height = '100%';
 
-					loadingCanvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvasSpine.style.height = '100%';
-				}else{
-					canvas.style.width  = '100%';
-					canvas.style.height = '100%';
-
-					loadingCanvas.style.width  = '100%';
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  = '100%';
-					canvasSpine.style.height = '100%';
-				}
-			}
+			
 
 			canvasSpine.width = canvasSpine.clientWidth; 
 			canvasSpine.height = canvasSpine.clientHeight;
@@ -245,14 +221,14 @@
 					var offset = new spine.Vector2();
 					var size = new spine.Vector2();
 					skeleton.updateWorldTransform();
-					skeleton.getBounds(offset, size, []);
-					renderer.camera.position.x = offset.x + size.x / 2;
+				skeleton.getBounds(offset, size, []);
+					//renderer.camera.position.x = offset.x + size.x / 2;
 					renderer.camera.position.y = offset.y + size.y / 2 - 100;
 					if (window.innerWidth > window.innerHeight) // десктоп
 					{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
 					}else{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
 					}
 
 					animationState.setAnimation(0, "animation", true);
@@ -268,7 +244,7 @@
 	   
 
 			function render() {
-				context.gl.clearColor(0.9, 0.9, 0.9, 1);
+				context.gl.clearColor(1.0, 1.0, 1.0, 1);
 				//context.gl.clear(context.gl.COLOR_BUFFER_BIT);
 				//context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
@@ -288,30 +264,13 @@
 
 			window.addEventListener('resize',function(){
 				
-				if (window.innerWidth > window.innerHeight) // десктоп
-				{
-					const wd = (window.innerHeight/9)*16;
-					canvas.style.width  = wd+"px";
+				
+				canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 						
-					loadingCanvas.style.width  = wd+"px";
+					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
-				}else{ // портрет
-					if (ratio < 0.55)
-					{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}else{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}
-				}
+
 			});
 			
 			
@@ -1000,40 +959,40 @@ vkBridge.send('VKWebAppShowOrderBox',
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Загрузка..."
+						loadingTextInfo.innerHTML = "Мастурбируем..."
 					}else if (progress < 0.2)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Чешем за ушком..."
+						loadingTextInfo.innerHTML = "Вытираем жопу..."
 					}else if (progress < 0.3)
 					{
 									 
-						loadingTextInfo.innerHTML = "Подгружаем лабиринты..."
+						loadingTextInfo.innerHTML = "эй, нахуй иди..."
 														  
 					}else if (progress < 0.4)
 					{
-						loadingTextInfo.innerHTML = "Проверяем комиксы на ошибки..."
+						loadingTextInfo.innerHTML = "Смотрим порно..."
 														
 													
 					}else if (progress < 0.5)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Гладим корги..."
+						loadingTextInfo.innerHTML = "Ищем закладку..."
 					}else if (progress < 0.6)
 					{
 									 
-						loadingTextInfo.innerHTML = "Подстригаем корги..."
+						loadingTextInfo.innerHTML = "Попадаем в мусарню..."
 												  
 					}else if (progress < 0.7)
 					{
 									 
-						loadingTextInfo.innerHTML = "Грызем косточки..."
+						loadingTextInfo.innerHTML = "Едем к блядям..."
 														
 					}else if (progress < 0.8)
 					{
-						loadingTextInfo.innerHTML = "Бегаем за хвостом..."
+						loadingTextInfo.innerHTML = "Додрачиваем..."
 													  
 													  
 		  
@@ -1043,7 +1002,7 @@ vkBridge.send('VKWebAppShowOrderBox',
 																   
 					}
 	 
-						loadingText.innerHTML = Math.ceil(progress * 300) + '%'
+						loadingText.innerHTML = Math.ceil(progress * 100) + '%'
 				}else{
 					loadingTextInfo.innerHTML = "Запускаем игру..."
 					loadingText.innerHTML = Math.ceil(progress * 100) + '%'

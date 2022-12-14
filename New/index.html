@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>TowerOfMagic</title>
+        <title>{{{ PRODUCT_NAME }}}</title>
         <style type="text/css">
             html, body {
 				background: #c7b39b url(Background_Tower_of_Magic300by90.png);
@@ -110,6 +110,7 @@
 
         <script src="./instant-games-bridge.js"></script>
 		<script src="./dist/iife/spine-webgl.js"></script>
+		<script src="Build/{{{ LOADER_FILENAME }}}"></script>
 		<script src="Build/New.loader.js"></script>
 		<img class=blockIMG id="loading-canvas" src="./Screenshot_6.png" align=”middle”>
 		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
@@ -203,16 +204,16 @@
 			var skeleton = null;
 			var animationState = null;
 
-			assetManager.loadText("sky.json");
-			assetManager.loadTextureAtlas("sky.atlas");
+			assetManager.loadText("crystal.json");
+			assetManager.loadTextureAtlas("crystal.atlas");
 
 			requestAnimationFrame(load);
 
 			function load() {
 				if (assetManager.isLoadingComplete()) {
-					var atlas = assetManager.get("sky.atlas");
+					var atlas = assetManager.get("crystal.atlas");
 					var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
 					var animationStateData = new spine.AnimationStateData(skeletonData);
 					animationStateData.defaultMix = 0.3;
 

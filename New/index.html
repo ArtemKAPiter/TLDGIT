@@ -103,6 +103,13 @@
         </style>
     </head>
 	<body>
+	
+	 
+        
+	
+	
+	
+	
         <canvas class=block id="unity-canvas"></canvas>
         <div id="loading"><span id="loading-text"></span></div>		
 
@@ -135,16 +142,16 @@ canvasSpine.width = canvasSpine.clientWidth;
       var skeleton = null;
       var animationState = null;
 
-      assetManager.loadText("crysta.json");
-      assetManager.loadTextureAtlas("crysta.atlas");
+      assetManager.loadText("crystal.json");
+      assetManager.loadTextureAtlas("crystal.atlas");
 
       requestAnimationFrame(load);
 
       function load() {
         if (assetManager.isLoadingComplete()) {
-          var atlas = assetManager.get("crysta.atlas");
+          var atlas = assetManager.get("crystal.atlas");
           var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crysta.json"));
+          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
           var animationStateData = new spine.AnimationStateData(skeletonData);
           animationStateData.defaultMix = 0.3;
 
@@ -198,8 +205,10 @@ canvasSpine.width = canvasSpine.clientWidth;
 	
 
          <head>
+		
     <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
 </head>
+ <canvas id="canvas" class="fullscreen"></canvas>
 <body></body>
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>

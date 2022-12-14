@@ -358,6 +358,7 @@
 						if (unityInstance) {
 							unityInstance.SendMessage('Bridge', 'OnInitializationCompleted', 'true')
 							LoadVKBridge();
+							setTimeout(function() { SetSize(); }, 1000);
 						}
 					})
 					.catch(error => {
@@ -372,6 +373,12 @@
 
 
 
+  function SetSize(){
+  canvas.style.width  = '100%'
+	canvas.style.height = '100%';
+  }
+
+
 
 function LoadVKBridge(){
 canvas.style.width  = '100%'
@@ -380,7 +387,8 @@ canvas.style.width  = '100%'
       vkBridge.send('VKWebAppInit')
   .then((data) => { 
     if (data.result) {
-     console.log("Good");
+     canvas.style.width  = '100%'
+	canvas.style.height = '100%';
 	 
     } else {
       console.log("error");

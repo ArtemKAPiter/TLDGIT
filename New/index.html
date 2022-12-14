@@ -4,392 +4,411 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>TowerOfMagic</title>
-        <style type="text/css">
+        <style>
             html, body {
-				background: #c7b39b url(pattern_corgi.png);
-				background-size: 30%;
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none
-
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
             }
-			@font-face {
-				font-family: 'font1';
-				src: url('Fonts/font-0024.ttf');
-			}
-			.text_scale{
-				width: 100px;
-				transform: scale(1,1);
-				transform-origin: left;
-				font-size:80px;
-				font-family: font1;
-				color: #00ff33;
-			}
-            #loading {
-				position: absolute;
+            .fullscreen {
+                background: #383838;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+            #loading-overlay {
+                font-size: 20px;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #icon {
+                max-width: 250px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            #progress-bar {
+                border-radius: 5px;
                 width: 90%;
-                height: 90%;
-				left: 5%;
-				top: -65px;
-				text-align:  center;
-
-				font-size:80px;
-				font-family: font1;
-				color: #f0f0f0;
-
-				text-shadow: #fff -1px -1px 0, 
-                 #333 1px 1px 0;
-                z-index: 10;
-                display: flex;
-				align-items: flex-end;
-				justify-content: center;
-				
-				
+                max-width: 250px;
+                height: 20px;
+                background: #242424;
+                padding: 5px;
             }
-			#loadingInfo {
-				position: absolute;
-                width: 300px;
-                height: 90%;
-				left: 50%;
-				margin-left: -150px;
-				
-				top: 15px;
-				text-align:  center;
-                
-				font-size:48px;
-				font-family: font1;
-				line-height:36px;
-				color: #f0f0f0;
-
-				text-shadow: #fff -1px -1px 0, 
-                 #333 1px 1px 0;
-                z-index: 10;
-                display: flex;
-				align-items: flex-end;
-				justify-content: center;
+            #progress-bar-fill {
+                border-radius: 3px;
+                width: 0%;
+                height: 100%;
+                background: #00e5ff;
             }
-			.block {
-				position: absolute;
-	
-
-				width: 450px;
-				height: 100%;
-
-				top: 50%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%);
-				z-index: 1;
-				
-
-
-			}
-			.blockIMG {
-				position: absolute;
-	
-
-				width: 450px;
-				height: 100%;
-
-				top: 50%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%);
-				z-index: 0
-			}
         </style>
     </head>
     <body>
-        <canvas class=block id="unity-canvas"></canvas>
-        <div id="loading"><span id="loading-text"></span></div>		
-
-		<div id="loadingInfo"></div>
-
+        <canvas id="canvas" class="fullscreen"></canvas>
+        <div id="loading-overlay" class="fullscreen">
+            <img id="icon" src="./ICON_FOR_STORE.png" />
+            <div id="progress-bar"><div id="progress-bar-fill"></div></div>
+        </div>
         <script src="./instant-games-bridge.js"></script>
-		<script src="./dist/iife/spine-webgl.js"></script>
-		<script src="Build/New.loader.js"></script>
-		<img class=blockIMG id="loading-canvas" src="./sky_fon.png" align=”middle”>
-		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
+		
 
 
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript" >
-		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-		   m[i].l=1*new Date();
-		   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-		   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-		   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+          </head>
 
-		   ym(90327597, "init", {
-				clickmap:true,
-				trackLinks:true,
-				accurateTrackBounce:true,
-				webvisor:true
-		   });
-
-		   function Strt(){
-			   //window.alert("Start!");
-			   ym(90327597,'reachGoal','Strt')
-			}
-			function Victory(){
-			   //window.alert("Victory!");
-			   ym(90327597,'reachGoal','Victory')
-			}
-			function Lose(){
-			   //window.alert("Lose!");
-			   ym(90327597,'reachGoal','Lose')
-			}
-			function Level(lvl){
-			
-									 
-   
-				var lvl_char = 'lvl'+lvl+''
-   
-				   
-			  
-				ym(90327597,'reachGoal',lvl_char)
-			 
-
-	   
-				//window.alert("Level! "+lvl+" "+lvl_char);
-			   
-			}
-			function Strtlvl(){
-			   //window.alert("Strtlvl!");
-			   ym(90327597,'reachGoal','Strtlvl')
-			}
-			function Timelvl(time){
-			   //window.alert("Timelvl! "+ time +" test");
-			}
-			function Rtrntgm(){
-			   //window.alert("Rtrntgm! ");
-			   ym(90327597,'reachGoal','Rtrntgm')
-			}
-
-		</script>
-		<noscript><div><img src="https://mc.yandex.ru/watch/90327597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
-
+         <head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
+<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    
+		
+		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                // Mobile device style: fill the whole browser client area with the game canvas:
-                var meta = document.createElement('meta')
+                let meta = document.createElement('meta')
                 meta.name = 'viewport'
                 meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'
                 document.getElementsByTagName('head')[0].appendChild(meta)
             }
 
-
-
-            let canvas = document.getElementById('unity-canvas')
-			let loadingCanvas = document.getElementById('loading-canvas')
-            let loading = document.getElementById('loading')
-            let loadingText = document.getElementById('loading-text')
-			let loadingTextInfo = document.getElementById('loadingInfo')
+    let loadingOver = document.getElementById('loading-overlay')
+    
 			
-			var canvasSpine = document.getElementById('cnv');
+            let loadingOverlay = document.getElementById('loading-overlay')
+            let progressBarFill = document.getElementById('progress-bar-fill')
+			
+			
+			
 
-			const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
+			
+
+            const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
             const STORAGE_VALUES_SEPARATOR = '{bridge_values_separator}'
+            
+            // utils
+            window.unityInstance = null
+            let progressBarFillingInterval = null
 
-			//alert("Width: "+window.innerWidth+"\n " +"Height: "+window.innerHeight);
+            function sendMessageToUnity(name, value) {
+                if (window.unityInstance !== null) {
+                    window.unityInstance.SendMessage('Bridge', name, value)
+                }
+            }
+                
 
-			var width = window.innerWidth;
-			var height = window.innerHeight;
-			var ratio = width / height;
+            function onUnityLoadingProgressChanged(progress) {
+                if (progress === 0.9) {
+                    completeProgressBarFilling()
+                    return
+                }
 
-			//alert("ratio: "+ratio+"\n"+ (window.innerHeight * ratio));
+                progressBarFill.style.width = `${ progress * 100 }%`
+                if (progress === 1 && progressBarFillingInterval !== null) {
+                    clearInterval(progressBarFillingInterval)
+                    progressBarFillingInterval = null
+                }
+            }
+            
+            function completeProgressBarFilling() {
+                if (progressBarFillingInterval !== null) {
+                    return
+                }
 
-			if (window.innerWidth > window.innerHeight) // десктоп
-			{
-				const wd = (window.innerHeight/9)*16;
+                let currentPercent = 90
+                progressBarFill.style.width = `${ currentPercent }%`
+                progressBarFillingInterval = setInterval(() => {
+                    currentPercent++
+                    if (currentPercent > 100) {
+                        currentPercent = 100
+                    }
 
-				//canvas.style.width  = Math.ceil(window.innerHeight*0.55)+"px";
-				canvas.style.width  = wd+"px";
-				canvas.style.height = '100%';
+                    progressBarFill.style.width = `${ currentPercent + 1 }%`
 
-				loadingCanvas.style.width  = wd+"px";
-				loadingCanvas.style.height = '100%';
+                    if (currentPercent >= 100) {
+                        clearInterval(progressBarFillingInterval)
+                        progressBarFillingInterval = null
+                        return
+                    }
+                }, 100)
+            }
 
-				canvasSpine.style.width  = wd+"px";
-				canvasSpine.style.height = '100%';
-			}else{ // портрет
-				if (ratio < 0.55)
-				{
-					canvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvas.style.height = '100%';
+            window.addEventListener('pointerdown', () => {
+                window.focus()
+                canvas.focus()
+            })
 
-					loadingCanvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					loadingCanvas.style.height = '100%';
+            // initialization
+            bridge
+                .initialize()
+                .then(() => {
+                    bridge.advertisement.on('interstitial_state_changed', state => sendMessageToUnity('OnInterstitialStateChanged', state))
+                    bridge.advertisement.on('rewarded_state_changed', state => sendMessageToUnity('OnRewardedStateChanged', state))
+                    bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
-					canvasSpine.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvasSpine.style.height = '100%';
-				}else{
-					canvas.style.width  = '100%';
-					canvas.style.height = '100%';
+                    let unityLoader = document.createElement('script')
+                    unityLoader.src = 'Build/New.loader.js'
+					
+					var myGameInstance = null;
 
-					loadingCanvas.style.width  = '100%';
-					loadingCanvas.style.height = '100%';
+                    unityLoader.onload = () => {
+                        createUnityInstance(
+                            canvas,
+                            {
+                                dataUrl: 'Build/New.data',
+                                frameworkUrl: 'Build/New.framework.js',
+                                codeUrl: 'Build/New.wasm',
+                                streamingAssetsUrl: 'StreamingAssets',
+                                companyName: 'ReallShin',
+                                productName: 'TowerOfMagic',
+                                productVersion: '1.19',
+                                // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+                                // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+                            },
+                            onUnityLoadingProgressChanged)
+                            .then((unityInstance) => {
+                                window.unityInstance = unityInstance
+								myGameInstance = unityInstance;
 
-					canvasSpine.style.width  = '100%';
-					canvasSpine.style.height = '100%';
-				}
-			}
+                                loadingOverlay.remove()
+								
+								LoadVKBridge();
+								
+                                canvas.focus()
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                            })
+                    }
+                    document.body.appendChild(unityLoader)
+                })
+                .catch(error => console.error(error))
+            
 
-			canvasSpine.width = canvasSpine.clientWidth; 
-			canvasSpine.height = canvasSpine.clientHeight;
-			var context = new spine.ManagedWebGLRenderingContext(canvasSpine);
-			var assetManager = new spine.AssetManager(context, "./data/corgi/");
-			var renderer = new spine.SceneRenderer(canvasSpine, context);
-			var time = new spine.TimeKeeper();
-			var loadingScreen = new spine.LoadingScreen(new spine.SceneRenderer(canvasSpine, context));
-
-			var skeleton = null;
-			var animationState = null;
-
-			assetManager.loadText("sky.json");
-			assetManager.loadTextureAtlas("sky.atlas");
-
-			requestAnimationFrame(load);
-
-			function load() {
-				if (assetManager.isLoadingComplete()) {
-					var atlas = assetManager.get("sky.atlas");
-					var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
-					var animationStateData = new spine.AnimationStateData(skeletonData);
-					animationStateData.defaultMix = 0.3;
-
-					skeleton = new spine.Skeleton(skeletonData);
-					animationState = new spine.AnimationState(animationStateData);
-					var offset = new spine.Vector2();
-					var size = new spine.Vector2();
-					skeleton.updateWorldTransform();
-					skeleton.getBounds(offset, size, []);
-					renderer.camera.position.x = offset.x + size.x / 2;
-					renderer.camera.position.y = offset.y + size.y / 2 - 100;
-					if (window.innerWidth > window.innerHeight) // десктоп
-					{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
-					}else{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
-					}
-
-					animationState.setAnimation(0, "animation", true);
-					/*animationState.addAnimation(0, "animation", true, 1);
-					animationState.addAnimation(0, "animation", true, 3);*/
-
-					requestAnimationFrame(render);
-				} else {
-					loadingScreen.draw(false);
-					requestAnimationFrame(load);
-				}
-			}
-	   
-
-			function render() {
-				context.gl.clearColor(0.9, 0.9, 0.9, 1);
-				//context.gl.clear(context.gl.COLOR_BUFFER_BIT);
-				//context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
-
-				time.update();
-				animationState.update(time.delta);
-				animationState.apply(skeleton);
-				skeleton.updateWorldTransform();
-
-				renderer.begin();
-				renderer.drawSkeleton(skeleton, true);
-				renderer.end();
-
-				loadingScreen.draw(true);
-
-				requestAnimationFrame(render);
-			}
-
-			window.addEventListener('resize',function(){
-				
-				if (window.innerWidth > window.innerHeight) // десктоп
-				{
-					const wd = (window.innerHeight/9)*16;
-					canvas.style.width  = wd+"px";
-					canvas.style.height = '100%';
-						
-					loadingCanvas.style.width  = wd+"px";
-					loadingCanvas.style.height = '100%';
-				}else{ // портрет
-					if (ratio < 0.55)
-					{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}else{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}
-				}
-			});
-			
-			
-			
-			
-			function CheckLoad(){
-			   window.alert("WORKING~!");
-			}
-		
-		
-		
-		
-		
-						
-			window.initialize = function() {
-				bridge
-					.initialize()
-					.then(() => {
-						//alert("initialize()");
-						bridge.advertisement.on(
-							'interstitial_state_changed', 
-							state => { 
-								if (unityInstance) {
-									unityInstance.SendMessage('Bridge', 'OnInterstitialStateChanged', state) 
-								}
-							})
-
-						bridge.advertisement.on(
-							'rewarded_state_changed', 
-							state => { 
-								if (unityInstance) {
-									unityInstance.SendMessage('Bridge', 'OnRewardedStateChanged', state) 
-								}
-							})
-
-						bridge.game.on(
-							'visibility_state_changed', 
-							state => { 
-								if (unityInstance) {
-									unityInstance.SendMessage('Bridge', 'OnVisibilityStateChanged', state) 
-								}
-							})
-
-						if (unityInstance) {
-							unityInstance.SendMessage('Bridge', 'OnInitializationCompleted', 'true')
-						}
-					})
-					.catch(error => {
-						if (unityInstance) {
-							unityInstance.SendMessage('Bridge', 'OnInitializationCompleted', 'false')
-						}
-					})
+function LoadVKBridge(){
+      vkBridge.send('VKWebAppInit')
+  .then((data) => { 
+    if (data.result) {
+     console.log("Good");
+    } else {
+      console.log("error");
+    }
+  })
+  .catch((error) => {
+console.log("error 23");
+    console.log(error);
+  });
 }
 
+
+
+ 
+
+		
+
+
+		
+		function LoadVkBanner()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '93%';
+					alert(document.getElementById("vk-banner-container").clientHeight);             
+})
+        })
+        }
+		
+		function HorizontalLoadVk()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '85%';
+					alert(document.getElementById("vk-banner-container").clientHeight);             
+})
+        })
+        }
+		
+
+						
+
+		
+		
+		function HideVkBanner(){
+            vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                                bridgeExtensions.vk.banner.hide()
+								console.log('Баннера нету.', data) 
+								canvas.style.width  = '100%'
+					            canvas.style.height = '100%';
+                })
+        })
+        }
+		
+      
+
+		
+			 
+		function GetItem10(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_10', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity10();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+            
+function GetItem15(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_15', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity15();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  function GetItem25(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_25', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity25();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem45(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_45', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity45();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem80(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_80', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity80();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem140(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_140', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity140();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItemNoAds(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_noAds', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageGetItemNoAds();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+			
+			   
+			
+
+
+			 function SendMessageToUnity10(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
+      }
+			
+			 function SendMessageToUnity15(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney15');
+      }   
+	  
+	  function SendMessageToUnity25(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney25');
+      }
+	  
+	  function SendMessageToUnity45(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney45');
+      }
+	  
+	  function SendMessageToUnity80(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney80');
+      }
+	  
+	  function SendMessageToUnity140(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney140');
+      }
+	  
+	  function SendMessageGetItemNoAds(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'NoAds');
+      }
+
+
+            // platform
             window.getPlatformId = function() {
                 return bridge.platform.id
             }
@@ -450,10 +469,10 @@
             window.authorizePlayer = function(options) {
                 bridge.player.authorize(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnAuthorizeCompleted', 'true')
+                        sendMessageToUnity('OnAuthorizeCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnAuthorizeCompleted', 'false')
+                        sendMessageToUnity('OnAuthorizeCompleted', 'false')
                     })
             }
 
@@ -494,7 +513,7 @@
                                 }
                             }
 
-                            unityInstance.SendMessage('Bridge', 'OnGetStorageDataSuccess', `${key}${STORAGE_DATA_SEPARATOR}${values.join(STORAGE_VALUES_SEPARATOR)}`)
+                            sendMessageToUnity('OnGetStorageDataSuccess', `${key}${STORAGE_DATA_SEPARATOR}${values.join(STORAGE_VALUES_SEPARATOR)}`)
                         } else {
                             if (data[0]) {
                                 if (typeof data[0] !== 'string') {
@@ -504,11 +523,11 @@
                                 data = ''
                             }
 
-                            unityInstance.SendMessage('Bridge', 'OnGetStorageDataSuccess', `${key}${STORAGE_DATA_SEPARATOR}${data}`)
+                            sendMessageToUnity('OnGetStorageDataSuccess', `${key}${STORAGE_DATA_SEPARATOR}${data}`)
                         }
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnGetStorageDataFailed', key)
+                        sendMessageToUnity('OnGetStorageDataFailed', key)
                     })
             }
 
@@ -518,10 +537,10 @@
 
                 bridge.storage.set(keys, values, storageType)
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnSetStorageDataSuccess', key)
+                        sendMessageToUnity('OnSetStorageDataSuccess', key)
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnSetStorageDataFailed', key)
+                        sendMessageToUnity('OnSetStorageDataFailed', key)
                     })
             }
 
@@ -530,15 +549,23 @@
 
                 bridge.storage.delete(keys, storageType)
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnDeleteStorageDataSuccess', key)
+                        sendMessageToUnity('OnDeleteStorageDataSuccess', key)
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnDeleteStorageDataFailed', key)
+                        sendMessageToUnity('OnDeleteStorageDataFailed', key)
                     })
             }
 
 
             // advertisement
+            window.getIsBannerSupported = function() {
+                return bridge.advertisement.isBannerSupported.toString()
+            }
+
+            window.getIsBannerShowing = function() {
+                return bridge.advertisement.isBannerShowing.toString()
+            }
+            
             window.getMinimumDelayBetweenInterstitial = function() {
                 return bridge.advertisement.minimumDelayBetweenInterstitial.toString()
             }
@@ -547,23 +574,43 @@
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(JSON.parse(options))
             }
 
+            window.showBanner = function(options) {
+                bridge.advertisement.showBanner(JSON.parse(options))
+                    .then(() => {
+                        sendMessageToUnity('OnShowBannerCompleted', 'true')
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnShowBannerCompleted', 'false')
+                    })
+            }
+
+            window.hideBanner = function() {
+                bridge.advertisement.hideBanner()
+                    .then(() => {
+                        sendMessageToUnity('OnHideBannerCompleted', 'true')
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnHideBannerCompleted', 'false')
+                    })
+            }
+
             window.showInterstitial = function(options) {
                 bridge.advertisement.showInterstitial(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnShowInterstitialCompleted', 'true')
+                        sendMessageToUnity('OnShowInterstitialCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnShowInterstitialCompleted', 'false')
+                        sendMessageToUnity('OnShowInterstitialCompleted', 'false')
                     })
             }
 
             window.showRewarded = function() {
                 bridge.advertisement.showRewarded()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnShowRewardedCompleted', 'true')
+                        sendMessageToUnity('OnShowRewardedCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnShowRewardedCompleted', 'false')
+                        sendMessageToUnity('OnShowRewardedCompleted', 'false')
                     })
             }
 
@@ -600,70 +647,70 @@
             window.share = function(options) {
                 bridge.social.share(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnShareCompleted', 'true')
+                        sendMessageToUnity('OnShareCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnShareCompleted', 'false')
+                        sendMessageToUnity('OnShareCompleted', 'false')
                     })
             }
 
             window.inviteFriends = function() {
                 bridge.social.inviteFriends()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnInviteFriendsCompleted', 'true')
+                        sendMessageToUnity('OnInviteFriendsCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnInviteFriendsCompleted', 'false')
+                        sendMessageToUnity('OnInviteFriendsCompleted', 'false')
                     })
             }
 
             window.joinCommunity = function(options) {
                 bridge.social.joinCommunity(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnJoinCommunityCompleted', 'true')
+                        sendMessageToUnity('OnJoinCommunityCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnJoinCommunityCompleted', 'false')
+                        sendMessageToUnity('OnJoinCommunityCompleted', 'false')
                     })
             }
 
             window.createPost = function(options) {
                 bridge.social.createPost(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnCreatePostCompleted', 'true')
+                        sendMessageToUnity('OnCreatePostCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnCreatePostCompleted', 'false')
+                        sendMessageToUnity('OnCreatePostCompleted', 'false')
                     })
             }
 
             window.addToHomeScreen = function() {
                 bridge.social.addToHomeScreen()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnAddToHomeScreenCompleted', 'true')
+                        sendMessageToUnity('OnAddToHomeScreenCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnAddToHomeScreenCompleted', 'false')
+                        sendMessageToUnity('OnAddToHomeScreenCompleted', 'false')
                     })
             }
 
             window.addToFavorites = function() {
                 bridge.social.addToFavorites()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnAddToFavoritesCompleted', 'true')
+                        sendMessageToUnity('OnAddToFavoritesCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnAddToFavoritesCompleted', 'false')
+                        sendMessageToUnity('OnAddToFavoritesCompleted', 'false')
                     })
             }
 
             window.rate = function() {
                 bridge.social.rate()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnRateCompleted', 'true')
+                        sendMessageToUnity('OnRateCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnRateCompleted', 'false')
+                        sendMessageToUnity('OnRateCompleted', 'false')
                     })
             }
 
@@ -696,10 +743,10 @@
             window.leaderboardSetScore = function(options) {
                 bridge.leaderboard.setScore(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardSetScoreCompleted', 'true')
+                        sendMessageToUnity('OnLeaderboardSetScoreCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardSetScoreCompleted', 'false')
+                        sendMessageToUnity('OnLeaderboardSetScoreCompleted', 'false')
                     })
             }
 
@@ -711,13 +758,13 @@
                                 data = JSON.stringify(data)
                             }
 
-                            unityInstance.SendMessage('Bridge', 'OnLeaderboardGetScoreCompleted', data)
+                            sendMessageToUnity('OnLeaderboardGetScoreCompleted', data)
                         } else {
-                            unityInstance.SendMessage('Bridge', 'OnLeaderboardGetScoreCompleted', '')
+                            sendMessageToUnity('OnLeaderboardGetScoreCompleted', '')
                         }
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardGetScoreCompleted', 'false')
+                        sendMessageToUnity('OnLeaderboardGetScoreCompleted', 'false')
                     })
             }
 
@@ -729,117 +776,25 @@
                                 data = JSON.stringify(data)
                             }
 
-                            unityInstance.SendMessage('Bridge', 'OnLeaderboardGetEntriesCompletedSuccess', data)
+                            sendMessageToUnity('OnLeaderboardGetEntriesCompletedSuccess', data)
                         } else {
-                            unityInstance.SendMessage('Bridge', 'OnLeaderboardGetEntriesCompletedSuccess', '')
+                            sendMessageToUnity('OnLeaderboardGetEntriesCompletedSuccess', '')
                         }
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardGetEntriesCompletedFailed', 'false')
+                        sendMessageToUnity('OnLeaderboardGetEntriesCompletedFailed', 'false')
                     })
             }
 
             window.leaderboardShowNativePopup = function(options) {
                 bridge.leaderboard.showNativePopup(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardShowNativePopupCompleted', 'true')
+                        sendMessageToUnity('OnLeaderboardShowNativePopupCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnLeaderboardShowNativePopupCompleted', 'false')
+                        sendMessageToUnity('OnLeaderboardShowNativePopupCompleted', 'false')
                     })
             }
-
-
-            window.onUnityLoadingProgressChanged = function(progress) {
-			
-				if (progress < 0.9)
-				{
-					if (progress < 0.1)
-					{
-									 
-									 
-						loadingTextInfo.innerHTML = "Загрузка..."
-					}else if (progress < 0.2)
-					{
-									 
-									 
-						loadingTextInfo.innerHTML = "Чешем за ушком..."
-					}else if (progress < 0.3)
-					{
-									 
-						loadingTextInfo.innerHTML = "Подгружаем лабиринты..."
-														  
-					}else if (progress < 0.4)
-					{
-						loadingTextInfo.innerHTML = "Проверяем комиксы на ошибки..."
-														
-													
-					}else if (progress < 0.5)
-					{
-									 
-									 
-						loadingTextInfo.innerHTML = "Гладим корги..."
-					}else if (progress < 0.6)
-					{
-									 
-						loadingTextInfo.innerHTML = "Подстригаем корги..."
-												  
-					}else if (progress < 0.7)
-					{
-									 
-						loadingTextInfo.innerHTML = "Грызем косточки..."
-														
-					}else if (progress < 0.8)
-					{
-						loadingTextInfo.innerHTML = "Бегаем за хвостом..."
-													  
-													  
-		  
-	  
-									 
-									 
-																   
-					}
-	 
-						loadingText.innerHTML = Math.ceil(progress * 300) + '%'
-				}else{
-					loadingTextInfo.innerHTML = "Запускаем игру..."
-					loadingText.innerHTML = Math.ceil(progress * 100) + '%'
-				}
-			}
-            
-            createUnityInstance(
-                document.querySelector('#unity-canvas'), 
-                {
-                    dataUrl: 'Build/New.data',
-                    frameworkUrl: 'Build/New.framework.js',
-                    codeUrl: 'Build/New.wasm',
-                    streamingAssetsUrl: 'StreamingAssets',
-                    companyName: 'ReallShin',
-                    productName: 'TowerOfMagic',
-                    productVersion: '1.19',
-                    // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-                    // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-                },
-                onUnityLoadingProgressChanged)
-            .then((unityInstance) => {
-                window.unityInstance = unityInstance
-                loading.remove()
-				loadingCanvas.remove()
-				loadingText.remove()
-				loadingTextInfo.remove()
-				canvasSpine.remove()
-							 
-            })
-            .catch((error) => {
-                loadingText.innerHTML = error
-            })
-
-            window.addEventListener('pointerdown', () => {
-                window.focus()
-                canvas.focus()
-            })
-			initialize()
         </script>
     </body>
 </html>

@@ -6,7 +6,7 @@
         <title>TowerOfMagic</title>
         <style type="text/css">
             html, body {
-				background: #c7b39b url(pattern_corgi.png);
+				background: #c7b39b url(Background_Tower_of_Magic300by90.png);
 				background-size: 30%;
 				-webkit-touch-callout: none;
 				-webkit-user-select: none;
@@ -111,67 +111,91 @@
         <script src="./instant-games-bridge.js"></script>
 		<script src="./dist/iife/spine-webgl.js"></script>
 		<script src="Build/New.loader.js"></script>
-		<img class=blockIMG id="loading-canvas" src="./sky_fon.png" align=”middle”>
+		<img class=blockIMG id="loading-canvas" src="./Screenshot_6.png" align=”middle”>
 		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
+          
+		<script>
+		
+		var canvasSpine = document.getElementById('cnv');
+		
+		canvasSpine.style.width  = '100%';
+canvasSpine.style.height = '100%';
+          
+          
+          
+          
+canvasSpine.width = canvasSpine.clientWidth; 
+      canvasSpine.height = canvasSpine.clientHeight;
+      var context = new spine.ManagedWebGLRenderingContext(canvasSpine);
+      var assetManager = new spine.AssetManager(context, "./data/corgi/");
+      var renderer = new spine.SceneRenderer(canvasSpine, context);
+      var time = new spine.TimeKeeper();
+      var loadingScreen = new spine.LoadingScreen(new spine.SceneRenderer(canvasSpine, context));
 
+      var skeleton = null;
+      var animationState = null;
 
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript" >
-		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-		   m[i].l=1*new Date();
-		   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-		   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-		   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+      assetManager.loadText("sky.json");
+      assetManager.loadTextureAtlas("sky.atlas");
 
-		   ym(90327597, "init", {
-				clickmap:true,
-				trackLinks:true,
-				accurateTrackBounce:true,
-				webvisor:true
-		   });
+      requestAnimationFrame(load);
 
-		   function Strt(){
-			   //window.alert("Start!");
-			   ym(90327597,'reachGoal','Strt')
-			}
-			function Victory(){
-			   //window.alert("Victory!");
-			   ym(90327597,'reachGoal','Victory')
-			}
-			function Lose(){
-			   //window.alert("Lose!");
-			   ym(90327597,'reachGoal','Lose')
-			}
-			function Level(lvl){
-			
-									 
-   
-				var lvl_char = 'lvl'+lvl+''
-   
-				   
-			  
-				ym(90327597,'reachGoal',lvl_char)
-			 
+      function load() {
+        if (assetManager.isLoadingComplete()) {
+          var atlas = assetManager.get("sky.atlas");
+          var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
+          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+          var animationStateData = new spine.AnimationStateData(skeletonData);
+          animationStateData.defaultMix = 0.3;
 
-	   
-				//window.alert("Level! "+lvl+" "+lvl_char);
-			   
-			}
-			function Strtlvl(){
-			   //window.alert("Strtlvl!");
-			   ym(90327597,'reachGoal','Strtlvl')
-			}
-			function Timelvl(time){
-			   //window.alert("Timelvl! "+ time +" test");
-			}
-			function Rtrntgm(){
-			   //window.alert("Rtrntgm! ");
-			   ym(90327597,'reachGoal','Rtrntgm')
-			}
+          skeleton = new spine.Skeleton(skeletonData);
+          animationState = new spine.AnimationState(animationStateData);
+          var offset = new spine.Vector2();
+          var size = new spine.Vector2();
+          skeleton.updateWorldTransform();
+          skeleton.getBounds(offset, size, []);
+          renderer.camera.position.x = offset.x + size.x / 2;
+          renderer.camera.position.y = offset.y + size.y / 2 - 100;
+          if (window.innerWidth > window.innerHeight) // десктоп
+          {
+            renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
+          }else{
+            renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
+          }
 
-		</script>
-		<noscript><div><img src="https://mc.yandex.ru/watch/90327597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
+          animationState.setAnimation(0, "animation", true);
+          /*animationState.addAnimation(0, "animation", true, 1);
+          animationState.addAnimation(0, "animation", true, 3);*/
+
+          requestAnimationFrame(render);
+        } else {
+          loadingScreen.draw(false);
+          requestAnimationFrame(load);
+        }
+      }
+     
+
+      function render() {
+        context.gl.clearColor(0.9, 0.9, 0.9, 1);
+        //context.gl.clear(context.gl.COLOR_BUFFER_BIT);
+        //context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
+
+        time.update();
+        animationState.update(time.delta);
+        animationState.apply(skeleton);
+        skeleton.updateWorldTransform();
+
+        renderer.begin();
+        renderer.drawSkeleton(skeleton, true);
+        renderer.end();
+
+        loadingScreen.draw(true);
+
+        requestAnimationFrame(render);
+      }
+	  </script>
+
+	
 
          <head>
     <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">

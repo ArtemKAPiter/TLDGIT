@@ -254,8 +254,9 @@ vkBridge
 
 		
 		
-		function HideVkBanner(){
-            vkBridge
+		function onClose(){
+		window.alert("Banner Closed");
+           vkBridge
         .send('VKWebAppInit')
         .then(() => {
 
@@ -263,11 +264,13 @@ vkBridge
             vkBridge
                 .send('VKWebAppGetAds')
                 .then(data => {
-                                bridgeExtensions.vk.banner.hide()
-								console.log('Баннера нету.', data) 
-								canvas.style.width  = '100%'
-					            canvas.style.height = '100%';
-                })
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '93%';
+					alert(document.getElementById("vk-banner-container").clientHeight);             
+})
         })
         }
 		

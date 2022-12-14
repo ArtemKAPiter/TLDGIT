@@ -3,206 +3,84 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>TowerOfMagic</title>
-        <style type="text/css">
+        <title>{{{ PRODUCT_NAME }}}</title>
+        <style>
             html, body {
-				background: #c7b39b url(pattern_corgi.png);
-				background-size: 30%;
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none
-
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
             }
-			@font-face {
-				font-family: 'font1';
-				src: url('Fonts/font-0024.ttf');
-			}
-			.text_scale{
-				width: 100px;
-				transform: scale(1,1);
-				transform-origin: left;
-				font-size:80px;
-				font-family: font1;
-				color: #00ff33;
-			}
-            #loading {
-				position: absolute;
+            .fullscreen {
+#if OVERLAY_BACKGROUND_COLOR && OVERLAY_BACKGROUND_COLOR !== '-' && OVERLAY_BACKGROUND_COLOR !== ' '
+                background: {{{ OVERLAY_BACKGROUND_COLOR }}};
+#else
+                background: #383838;
+#endif
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+            #loading-overlay {
+                font-size: 20px;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #icon {
+                max-width: 250px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            #progress-bar {
+                border-radius: 5px;
                 width: 90%;
-                height: 90%;
-				left: 5%;
-				top: -65px;
-				text-align:  center;
-
-				font-size:80px;
-				font-family: font1;
-				color: #f0f0f0;
-
-				text-shadow: #fff -1px -1px 0, 
-                 #333 1px 1px 0;
-                z-index: 10;
-                display: flex;
-				align-items: flex-end;
-				justify-content: center;
-				
-				
+                max-width: 250px;
+                height: 20px;
+#if PROGRESS_BAR_BACKGROUND_COLOR && PROGRESS_BAR_BACKGROUND_COLOR !== '-' && PROGRESS_BAR_BACKGROUND_COLOR !== ' '
+                background: {{{ PROGRESS_BAR_BACKGROUND_COLOR }}};
+#else
+                background: #242424;
+#endif
+                padding: 5px;
             }
-			#loadingInfo {
-				position: absolute;
-                width: 300px;
-                height: 90%;
-				left: 50%;
-				margin-left: -150px;
-				
-				top: 15px;
-				text-align:  center;
-                
-				font-size:48px;
-				font-family: font1;
-				line-height:36px;
-				color: #f0f0f0;
-
-				text-shadow: #fff -1px -1px 0, 
-                 #333 1px 1px 0;
-                z-index: 10;
-                display: flex;
-				align-items: flex-end;
-				justify-content: center;
+            #progress-bar-fill {
+                border-radius: 3px;
+                width: 0%;
+                height: 100%;
+#if PROGRESS_BAR_FILL_COLOR && PROGRESS_BAR_FILL_COLOR !== '-' && PROGRESS_BAR_FILL_COLOR !== ' '
+                background: {{{ PROGRESS_BAR_FILL_COLOR }}};
+#else
+                background: #00e5ff;
+#endif
             }
-			.block {
-				position: absolute;
-	
-
-				width: 450px;
-				height: 100%;
-
-				top: 50%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%);
-				z-index: 1;
-				
-
-
-			}
-			.blockIMG {
-				position: absolute;
-	
-
-				width: 450px;
-				height: 100%;
-
-				top: 50%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%);
-				z-index: 0
-			}
         </style>
     </head>
     <body>
-	
-	    <canvas id="canvas" class="fullscreen"></canvas>
-		<div id="loading-overlay" class="fullscreen">
-		 <img id="icon" src="./ICON_FOR_STORE.png" />
+        <canvas id="canvas" class="fullscreen"></canvas>
+        <div id="loading-overlay" class="fullscreen">
+            <img id="icon" src="./ICON_FOR_STORE.png" />
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
-		</div>
-		 <script src="./instant-games-bridge.js"></script>
+        </div>
+        <script src="./instant-games-bridge.js"></script>
 		
-		
-        <canvas class=block id="unity-canvas"></canvas>
-        <div id="loading"><span id="loading-text"></span></div>		
-
-		<div id="loadingInfo"></div>
-
-		<script src="./dist/iife/spine-webgl.js"></script>
-		<script src="Build/New.loader.js"></script>
-		<img class=blockIMG id="loading-canvas" src="./sky_fon.png" align=”middle”>
-		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
 
 
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript" >
-		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-		   m[i].l=1*new Date();
-		   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-		   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-		   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+          </head>
 
-		   ym(90327597, "init", {
-				clickmap:true,
-				trackLinks:true,
-				accurateTrackBounce:true,
-				webvisor:true
-		   });
-
-		   function Strt(){
-			   //window.alert("Start!");
-			   ym(90327597,'reachGoal','Strt')
-			}
-			function Victory(){
-			   //window.alert("Victory!");
-			   ym(90327597,'reachGoal','Victory')
-			}
-			function Lose(){
-			   //window.alert("Lose!");
-			   ym(90327597,'reachGoal','Lose')
-			}
-			function Level(lvl){
-			
-									 
-   
-				var lvl_char = 'lvl'+lvl+''
-   
-				   
-			  
-				ym(90327597,'reachGoal',lvl_char)
-			 
-
-	   
-				//window.alert("Level! "+lvl+" "+lvl_char);
-			   
-			}
-			function Strtlvl(){
-			   //window.alert("Strtlvl!");
-			   ym(90327597,'reachGoal','Strtlvl')
-			}
-			function Timelvl(time){
-			   //window.alert("Timelvl! "+ time +" test");
-			}
-			function Rtrntgm(){
-			   //window.alert("Rtrntgm! ");
-			   ym(90327597,'reachGoal','Rtrntgm')
-			}
-
-		</script>
-		<noscript><div><img src="https://mc.yandex.ru/watch/90327597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
-		
-		
-        
-		
-		
-		
-		
-		
-		<head>
+         <head>
     <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
 </head>
 <body></body>
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    
 		
 		
-		
-		
-		
-		
-		
-		
-
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -298,10 +176,12 @@
                                 dataUrl: 'Build/{{{ DATA_FILENAME }}}',
                                 frameworkUrl: 'Build/{{{ FRAMEWORK_FILENAME }}}',
                                 codeUrl: 'Build/{{{ CODE_FILENAME }}}',
+#if MEMORY_FILENAME
                                 memoryUrl: 'Build/{{{ MEMORY_FILENAME }}}',
-
+#endif
+#if SYMBOLS_FILENAME
                                 symbolsUrl: 'Build/{{{ SYMBOLS_FILENAME }}}',
-
+#endif
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: '{{{ COMPANY_NAME }}}',
                                 productName: '{{{ PRODUCT_NAME }}}',

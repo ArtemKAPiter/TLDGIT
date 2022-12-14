@@ -185,24 +185,24 @@
 				const wd = (window.innerHeight/9)*16;
 
 				//canvas.style.width  = Math.ceil(window.innerHeight*0.55)+"px";
-				canvas.style.width  = wd+"px";
+				canvas.style.width  = '100%';
 				canvas.style.height = '100%';
 
-				loadingCanvas.style.width  = wd+"px";
+				loadingCanvas.style.width  = '100%';
 				loadingCanvas.style.height = '100%';
 
-				canvasSpine.style.width  = wd+"px";
+				canvasSpine.style.width  = '100%';
 				canvasSpine.style.height = '100%';
 			}else{ // портрет
 				if (ratio < 0.55)
 				{
-					canvas.style.width  = Math.ceil(window.innerWidth)+"px";
+					canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 
-					loadingCanvas.style.width  = Math.ceil(window.innerWidth)+"px";
+					loadingCanvas.style.width  =  '100%';
 					loadingCanvas.style.height = '100%';
 
-					canvasSpine.style.width  = Math.ceil(window.innerWidth)+"px";
+					canvasSpine.style.width  =  '100%';
 					canvasSpine.style.height = '100%';
 				}else{
 					canvas.style.width  = '100%';
@@ -1043,7 +1043,7 @@ vkBridge.send('VKWebAppShowOrderBox',
 																   
 					}
 	 
-						loadingText.innerHTML = Math.ceil(progress * 300) + '%'
+						loadingText.innerHTML = Math.ceil(progress * 100) + '%'
 				}else{
 					loadingTextInfo.innerHTML = "Запускаем игру..."
 					loadingText.innerHTML = Math.ceil(progress * 100) + '%'

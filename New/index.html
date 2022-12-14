@@ -210,14 +210,14 @@ console.log("error 23");
 
 
   function LoadUserName(){
-  vkBridge.send('VKWebAppGetUserInfo', {
-   .then((data) => { 
+  vkBridge.send('VKWebAppGetAds')
+                .then(data => {
     if (data.id) {
   alert(player.name.toString());
   }
   })
   }
-  }
+ 
 
 		
 

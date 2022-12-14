@@ -204,7 +204,21 @@ function LoadVKBridge(){
 console.log("error 23");
     console.log(error);
   });
+  
+  LoadUserName();
 }
+
+
+  function LoadUserName(){
+  vkBridge.send('VKWebAppGetUserInfo', {
+   .then((data) => { 
+    if (data.id) {
+  alert(player.name.toString());
+  }
+  })
+  }
+  }
+
 		
 
 
@@ -447,7 +461,7 @@ vkBridge.send('VKWebAppShowOrderBox',
 
             window.getPlayerName = function() {
                 if (bridge.player.name) {
-                    return bridge.player.name.toString()
+                    return bridge.player.first_name.toString()
                 }
 
                 return ''

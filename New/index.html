@@ -179,13 +179,9 @@
 			var ratio = width / height;
 
 			//alert("ratio: "+ratio+"\n"+ (window.innerHeight * ratio));
-
-			if (window.innerWidth > window.innerHeight) // десктоп
-			{
-				const wd = (window.innerHeight/9)*16;
-
-				//canvas.style.width  = Math.ceil(window.innerHeight*0.55)+"px";
-				canvas.style.width  = '100%';
+			
+			
+			canvas.style.width  = '100%';
 				canvas.style.height = '100%';
 
 				loadingCanvas.style.width  = '100%';
@@ -193,28 +189,8 @@
 
 				canvasSpine.style.width  = '100%';
 				canvasSpine.style.height = '100%';
-			}else{ // портрет
-				if (ratio < 0.55)
-				{
-					canvas.style.width  = '100%';
-					canvas.style.height = '100%';
 
-					loadingCanvas.style.width  =  '100%';
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  =  '100%';
-					canvasSpine.style.height = '100%';
-				}else{
-					canvas.style.width  = '100%';
-					canvas.style.height = '100%';
-
-					loadingCanvas.style.width  = '100%';
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  = '100%';
-					canvasSpine.style.height = '100%';
-				}
-			}
+			
 
 			canvasSpine.width = canvasSpine.clientWidth; 
 			canvasSpine.height = canvasSpine.clientHeight;
@@ -227,16 +203,16 @@
 			var skeleton = null;
 			var animationState = null;
 
-			assetManager.loadText("crystal.json");
-			assetManager.loadTextureAtlas("crystal.atlas");
+			assetManager.loadText("sky.json");
+			assetManager.loadTextureAtlas("sky.atlas");
 
 			requestAnimationFrame(load);
 
 			function load() {
 				if (assetManager.isLoadingComplete()) {
-					var atlas = assetManager.get("crystal.atlas");
+					var atlas = assetManager.get("sky.atlas");
 					var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
+					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
 					var animationStateData = new spine.AnimationStateData(skeletonData);
 					animationStateData.defaultMix = 0.3;
 
@@ -245,14 +221,14 @@
 					var offset = new spine.Vector2();
 					var size = new spine.Vector2();
 					skeleton.updateWorldTransform();
-					skeleton.getBounds(offset, size, []);
-					renderer.camera.position.x = offset.x + size.x / 2;
+				skeleton.getBounds(offset, size, []);
+					//renderer.camera.position.x = offset.x + size.x / 2;
 					renderer.camera.position.y = offset.y + size.y / 2 - 100;
 					if (window.innerWidth > window.innerHeight) // десктоп
 					{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
 					}else{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
 					}
 
 					animationState.setAnimation(0, "animation", true);
@@ -268,7 +244,7 @@
 	   
 
 			function render() {
-				context.gl.clearColor(0.9, 0.9, 0.9, 1);
+				context.gl.clearColor(1.0, 1.0, 1.0, 1);
 				//context.gl.clear(context.gl.COLOR_BUFFER_BIT);
 				//context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
@@ -288,30 +264,13 @@
 
 			window.addEventListener('resize',function(){
 				
-				if (window.innerWidth > window.innerHeight) // десктоп
-				{
-					
-					canvas.style.width  = '100%';
+				
+				canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 						
 					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
-				}else{ // портрет
-					if (ratio < 0.55)
-					{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}else{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}
-				}
+
 			});
 			
 			

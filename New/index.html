@@ -103,12 +103,20 @@
         </style>
     </head>
     <body>
+	
+	    <canvas id="canvas" class="fullscreen"></canvas>
+		<div id="loading-overlay" class="fullscreen">
+		 <img id="icon" src="./ICON_FOR_STORE.png" />
+            <div id="progress-bar"><div id="progress-bar-fill"></div></div>
+		</div>
+		 <script src="./instant-games-bridge.js"></script>
+		
+		
         <canvas class=block id="unity-canvas"></canvas>
         <div id="loading"><span id="loading-text"></span></div>		
 
 		<div id="loadingInfo"></div>
 
-        <script src="./instant-games-bridge.js"></script>
 		<script src="./dist/iife/spine-webgl.js"></script>
 		<script src="Build/New.loader.js"></script>
 		<img class=blockIMG id="loading-canvas" src="./sky_fon.png" align=”middle”>
@@ -172,6 +180,28 @@
 		</script>
 		<noscript><div><img src="https://mc.yandex.ru/watch/90327597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 		<!-- /Yandex.Metrika counter -->
+		
+		
+        
+		
+		
+		
+		
+		
+		<head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
+<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+		
+		
+		
+		
+		
+		
+		
+		
 
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {

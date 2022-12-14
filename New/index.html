@@ -55,7 +55,6 @@
             <div id="progress-bar"><div id="progress-bar-fill"></div></div>
         </div>
         <script src="./instant-games-bridge.js"></script>
-		
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -192,18 +191,26 @@ vkBridge.send('VKWebAppGetAds')
 
 
 
-			function Victory(){
+			function BuyMoney(string _itemID){
         
 vkBridge.send('VKWebAppShowOrderBox', 
   { 
-    type: 'item', // Всегда должно быть 'item'
-    item: 'sale_item_1', // Идентификатор товара
+    type: 'item', 
+    item: _itemID, 
   })
-  .then( (data) => {console.log('Покупка состоялась.', data) }) 
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity(_itemID);
+	  }) 
+  
   .catch( (e) => {console.log('Ошибка!', e) });
   
       }
 	    
+		function SendMessageToUnity(string _itemID){	
+			console.log("Sending message to Unity: ");
+			unityInstance.SendMessage("BuyMoneyVK", "GetMoney", _itemID);
+		}
 		
   function handleGetItem(params) {
 

@@ -290,11 +290,11 @@
 				
 				if (window.innerWidth > window.innerHeight) // десктоп
 				{
-					const wd = (window.innerHeight/9)*16;
-					canvas.style.width  = wd+"px";
+					
+					canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 						
-					loadingCanvas.style.width  = wd+"px";
+					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
 				}else{ // портрет
 					if (ratio < 0.55)

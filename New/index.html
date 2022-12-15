@@ -6,7 +6,7 @@
         <title>TowerOfMagic</title>
         <style type="text/css">
             html, body {
-				background: #c7b39b url(pattern_corgi.png);
+				background: #c7b39b url(Background_Tower_of_Magic300by90.png);
 				background-size: 30%;
 				-webkit-touch-callout: none;
 				-webkit-user-select: none;
@@ -111,72 +111,28 @@
         <script src="./instant-games-bridge.js"></script>
 		<script src="./dist/iife/spine-webgl.js"></script>
 		<script src="Build/New.loader.js"></script>
-		<img class=blockIMG id="loading-canvas" src="./sky_fon.png" align=”middle”>
+		<img class=blockIMG id="loading-canvas" src="./Screenshot_6.png" align=”middle”>
 		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
+		<canvas id="canvas" class="fullscreen"></canvas>
+		
+		
+       
+          </head>
+
+         <head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
+<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+		
 
 
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript" >
-		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-		   m[i].l=1*new Date();
-		   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-		   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-		   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-		   ym(90327597, "init", {
-				clickmap:true,
-				trackLinks:true,
-				accurateTrackBounce:true,
-				webvisor:true
-		   });
-
-		   function Strt(){
-			   //window.alert("Start!");
-			   ym(90327597,'reachGoal','Strt')
-			}
-			function Victory(){
-			   //window.alert("Victory!");
-			   ym(90327597,'reachGoal','Victory')
-			}
-			function Lose(){
-			   //window.alert("Lose!");
-			   ym(90327597,'reachGoal','Lose')
-			}
-			function Level(lvl){
-			
-									 
-   
-				var lvl_char = 'lvl'+lvl+''
-   
-				   
-			  
-				ym(90327597,'reachGoal',lvl_char)
-			 
-
-	   
-				//window.alert("Level! "+lvl+" "+lvl_char);
-			   
-			}
-			function Strtlvl(){
-			   //window.alert("Strtlvl!");
-			   ym(90327597,'reachGoal','Strtlvl')
-			}
-			function Timelvl(time){
-			   //window.alert("Timelvl! "+ time +" test");
-			}
-			function Rtrntgm(){
-			   //window.alert("Rtrntgm! ");
-			   ym(90327597,'reachGoal','Rtrntgm')
-			}
-
-		</script>
-		<noscript><div><img src="https://mc.yandex.ru/watch/90327597" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
+	
 
         <script>
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                // Mobile device style: fill the whole browser client area with the game canvas:
-                var meta = document.createElement('meta')
+             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                let meta = document.createElement('meta')
                 meta.name = 'viewport'
                 meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'
                 document.getElementsByTagName('head')[0].appendChild(meta)
@@ -184,7 +140,16 @@
 
 
 
-            let canvas = document.getElementById('unity-canvas')
+            let loadingOver = document.getElementById('loading-overlay')
+    
+			
+            let loadingOverlay = document.getElementById('loading-overlay')
+            let progressBarFill = document.getElementById('progress-bar-fill')
+			
+			
+			
+
+			let canvas = document.getElementById('unity-canvas')
 			let loadingCanvas = document.getElementById('loading-canvas')
             let loading = document.getElementById('loading')
             let loadingText = document.getElementById('loading-text')
@@ -192,9 +157,20 @@
 			
 			var canvasSpine = document.getElementById('cnv');
 
-			const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
+            const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
             const STORAGE_VALUES_SEPARATOR = '{bridge_values_separator}'
+            
+            // utils
+            window.unityInstance = null
+            let progressBarFillingInterval = null
+
+            function sendMessageToUnity(name, value) {
+                if (window.unityInstance !== null) {
+                    window.unityInstance.SendMessage('Bridge', name, value)
+                }
+            }
+			
 
 			//alert("Width: "+window.innerWidth+"\n " +"Height: "+window.innerHeight);
 
@@ -203,42 +179,18 @@
 			var ratio = width / height;
 
 			//alert("ratio: "+ratio+"\n"+ (window.innerHeight * ratio));
-
-			if (window.innerWidth > window.innerHeight) // десктоп
-			{
-				const wd = (window.innerHeight/9)*16;
-
-				//canvas.style.width  = Math.ceil(window.innerHeight*0.55)+"px";
-				canvas.style.width  = wd+"px";
+			
+			
+			canvas.style.width  = '100%';
 				canvas.style.height = '100%';
 
-				loadingCanvas.style.width  = wd+"px";
+				loadingCanvas.style.width  = '100%';
 				loadingCanvas.style.height = '100%';
 
-				canvasSpine.style.width  = wd+"px";
+				canvasSpine.style.width  = '100%';
 				canvasSpine.style.height = '100%';
-			}else{ // портрет
-				if (ratio < 0.55)
-				{
-					canvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvas.style.height = '100%';
 
-					loadingCanvas.style.width  = Math.ceil(window.innerWidth)+"px";
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  = Math.ceil(window.innerWidth)+"px";
-					canvasSpine.style.height = '100%';
-				}else{
-					canvas.style.width  = '100%';
-					canvas.style.height = '100%';
-
-					loadingCanvas.style.width  = '100%';
-					loadingCanvas.style.height = '100%';
-
-					canvasSpine.style.width  = '100%';
-					canvasSpine.style.height = '100%';
-				}
-			}
+			
 
 			canvasSpine.width = canvasSpine.clientWidth; 
 			canvasSpine.height = canvasSpine.clientHeight;
@@ -269,14 +221,14 @@
 					var offset = new spine.Vector2();
 					var size = new spine.Vector2();
 					skeleton.updateWorldTransform();
-					skeleton.getBounds(offset, size, []);
-					renderer.camera.position.x = offset.x + size.x / 2;
+				skeleton.getBounds(offset, size, []);
+					//renderer.camera.position.x = offset.x + size.x / 2;
 					renderer.camera.position.y = offset.y + size.y / 2 - 100;
 					if (window.innerWidth > window.innerHeight) // десктоп
 					{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
 					}else{
-						renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
+						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
 					}
 
 					animationState.setAnimation(0, "animation", true);
@@ -292,7 +244,7 @@
 	   
 
 			function render() {
-				context.gl.clearColor(0.9, 0.9, 0.9, 1);
+				context.gl.clearColor(1.0, 1.0, 1.0, 1);
 				//context.gl.clear(context.gl.COLOR_BUFFER_BIT);
 				//context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
@@ -312,37 +264,20 @@
 
 			window.addEventListener('resize',function(){
 				
-				if (window.innerWidth > window.innerHeight) // десктоп
-				{
-					const wd = (window.innerHeight/9)*16;
-					canvas.style.width  = wd+"px";
+				
+				canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 						
-					loadingCanvas.style.width  = wd+"px";
+					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
-				}else{ // портрет
-					if (ratio < 0.55)
-					{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}else{
-						canvas.style.width  = '100%';
-						canvas.style.height = '100%';
-						
-						loadingCanvas.style.width  = '100%';
-						loadingCanvas.style.height = '100%';
-					}
-				}
+
 			});
 			
 			
 			
 			
 			function CheckLoad(){
-			   window.alert("WORKING~!");
+			  
 			}
 		
 		
@@ -381,6 +316,8 @@
 
 						if (unityInstance) {
 							unityInstance.SendMessage('Bridge', 'OnInitializationCompleted', 'true')
+							LoadVKBridge();
+							setTimeout(function() { SetSize(); }, 1000);
 						}
 					})
 					.catch(error => {
@@ -389,6 +326,242 @@
 						}
 					})
 }
+
+
+
+
+
+
+  function SetSize(){
+  canvas.style.width  = '100%'
+	canvas.style.height = '100%';
+  }
+
+
+
+function LoadVKBridge(){
+canvas.style.width  = '100%'
+	canvas.style.height = '100%';
+
+      vkBridge.send('VKWebAppInit')
+  .then((data) => { 
+    if (data.result) {
+     canvas.style.width  = '100%'
+	canvas.style.height = '100%';
+	 
+    } else {
+      console.log("error");
+    }
+  })
+  .catch((error) => {
+console.log("error 23");
+    console.log(error);
+  });
+}
+		
+
+
+		
+		function LoadVkBanner()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '93%';
+})
+        })
+        }
+		
+		function HorizontalLoadVk()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '85%';
+})
+        })
+        }
+		
+
+						
+
+		
+		
+		function HideVkBanner(){
+            vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                                bridgeExtensions.vk.banner.hide()
+								console.log('Баннера нету.', data) 
+								canvas.style.width  = '100%'
+					            canvas.style.height = '100%';
+                })
+        })
+        }
+		
+      
+
+		
+			 
+		function GetItem10(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_10', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity10();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+            
+function GetItem15(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_15', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity15();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  function GetItem25(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_25', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity25();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem45(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_45', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity45();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem80(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_80', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity80();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItem140(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_140', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity140();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+	  
+	  
+	  function GetItemNoAds(){ 
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_noAds', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageGetItemNoAds();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
+      }
+			
+			   
+			
+
+
+			 function SendMessageToUnity10(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
+      }
+			
+			 function SendMessageToUnity15(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney15');
+      }   
+	  
+	  function SendMessageToUnity25(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney25');
+      }
+	  
+	  function SendMessageToUnity45(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney45');
+      }
+	  
+	  function SendMessageToUnity80(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney80');
+      }
+	  
+	  function SendMessageToUnity140(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney140');
+      }
+	  
+	  function SendMessageGetItemNoAds(){ 
+         unityInstance.SendMessage('BuyMoneyVK', 'NoAds');
+      }
+
+
+
+
+
+
+
+
+
+
 
             window.getPlatformId = function() {
                 return bridge.platform.id
@@ -539,6 +712,12 @@
 
 
             // advertisement
+
+
+            window.getIsBannerShowing = function() {
+                return bridge.advertisement.isBannerShowing.toString()
+            }
+            
             window.getMinimumDelayBetweenInterstitial = function() {
                 return bridge.advertisement.minimumDelayBetweenInterstitial.toString()
             }
@@ -547,23 +726,43 @@
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(JSON.parse(options))
             }
 
+            window.showBanner = function(options) {
+                bridge.advertisement.showBanner(JSON.parse(options))
+                    .then(() => {
+                        sendMessageToUnity('OnShowBannerCompleted', 'true')
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnShowBannerCompleted', 'false')
+                    })
+            }
+
+            window.hideBanner = function() {
+                bridge.advertisement.hideBanner()
+                    .then(() => {
+                        sendMessageToUnity('OnHideBannerCompleted', 'true')
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnHideBannerCompleted', 'false')
+                    })
+            }
+
             window.showInterstitial = function(options) {
                 bridge.advertisement.showInterstitial(JSON.parse(options))
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnShowInterstitialCompleted', 'true')
+                        sendMessageToUnity('OnShowInterstitialCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnShowInterstitialCompleted', 'false')
+                        sendMessageToUnity('OnShowInterstitialCompleted', 'false')
                     })
             }
 
             window.showRewarded = function() {
                 bridge.advertisement.showRewarded()
                     .then(() => {
-                        unityInstance.SendMessage('Bridge', 'OnShowRewardedCompleted', 'true')
+                        sendMessageToUnity('OnShowRewardedCompleted', 'true')
                     })
                     .catch(error => {
-                        unityInstance.SendMessage('Bridge', 'OnShowRewardedCompleted', 'false')
+                        sendMessageToUnity('OnShowRewardedCompleted', 'false')
                     })
             }
 
@@ -758,40 +957,40 @@
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Загрузка..."
+						loadingTextInfo.innerHTML = "..."
 					}else if (progress < 0.2)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Чешем за ушком..."
+						loadingTextInfo.innerHTML = "..."
 					}else if (progress < 0.3)
 					{
 									 
-						loadingTextInfo.innerHTML = "Подгружаем лабиринты..."
+						loadingTextInfo.innerHTML = "..."
 														  
 					}else if (progress < 0.4)
 					{
-						loadingTextInfo.innerHTML = "Проверяем комиксы на ошибки..."
+						loadingTextInfo.innerHTML = "..."
 														
 													
 					}else if (progress < 0.5)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "Гладим корги..."
+						loadingTextInfo.innerHTML = "..."
 					}else if (progress < 0.6)
 					{
 									 
-						loadingTextInfo.innerHTML = "Подстригаем корги..."
+						loadingTextInfo.innerHTML = "..."
 												  
 					}else if (progress < 0.7)
 					{
 									 
-						loadingTextInfo.innerHTML = "Грызем косточки..."
+						loadingTextInfo.innerHTML = "..."
 														
 					}else if (progress < 0.8)
 					{
-						loadingTextInfo.innerHTML = "Бегаем за хвостом..."
+						loadingTextInfo.innerHTML = "..."
 													  
 													  
 		  
@@ -801,7 +1000,7 @@
 																   
 					}
 	 
-						loadingText.innerHTML = Math.ceil(progress * 300) + '%'
+						loadingText.innerHTML = Math.ceil(progress * 100) + '%'
 				}else{
 					loadingTextInfo.innerHTML = "Запускаем игру..."
 					loadingText.innerHTML = Math.ceil(progress * 100) + '%'

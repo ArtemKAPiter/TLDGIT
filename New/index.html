@@ -1,3 +1,33 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@ArtemKAPiter 
+ArtemKAPiter
+/
+VkGameTest
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+VkGameTest/New/index.html
+@ArtemKAPiter
+ArtemKAPiter WAd
+Latest commit c0d3d7d 16 minutes ago
+ History
+ 1 contributor
+1044 lines (801 sloc)  30.9 KB
+
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
@@ -203,16 +233,16 @@
 			var skeleton = null;
 			var animationState = null;
 
-			assetManager.loadText("sky.json");
-			assetManager.loadTextureAtlas("sky.atlas");
+			assetManager.loadText("crystal.json");
+			assetManager.loadTextureAtlas("crystal.atlas");
 
 			requestAnimationFrame(load);
 
 			 function load() {
         if (assetManager.isLoadingComplete()) {
-          var atlas = assetManager.get("sky.atlas");
+          var atlas = assetManager.get("crystal.atlas");
           var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
           var animationStateData = new spine.AnimationStateData(skeletonData);
           animationStateData.defaultMix = 0.3;
 
@@ -423,7 +453,10 @@ vkBridge
         }
 		
       
-
+function SetScaleToFull(){ 
+canvas.style.width  = '100%'
+canvas.style.height = '100%';
+      }
 		
 			 
 		function GetItem10(){ 
@@ -1042,3 +1075,18 @@ vkBridge.send('VKWebAppShowOrderBox',
         </script>
     </body>
 </html>
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+VkGameTest/index.html at master · ArtemKAPiter/VkGameTest

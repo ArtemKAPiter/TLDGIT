@@ -203,16 +203,16 @@
 			var skeleton = null;
 			var animationState = null;
 
-			assetManager.loadText("sky.json");
-			assetManager.loadTextureAtlas("sky.atlas");
+			assetManager.loadText("crystal.json");
+			assetManager.loadTextureAtlas("crystal.atlas");
 
 			requestAnimationFrame(load);
 
 			function load() {
 				if (assetManager.isLoadingComplete()) {
-					var atlas = assetManager.get("sky.atlas");
+					var atlas = assetManager.get("crystal.atlas");
 					var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
 					var animationStateData = new spine.AnimationStateData(skeletonData);
 					animationStateData.defaultMix = 0.3;
 

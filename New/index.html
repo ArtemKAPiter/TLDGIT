@@ -30,8 +30,8 @@
 			}
             #loading {
 				position: absolute;
-                width: 90%;
-                height: 90%;
+                width: 100%;
+                height: 100%;
 				left: 5%;
 				top: -65px;
 				text-align:  center;
@@ -52,7 +52,7 @@
 			#loadingInfo {
 				position: absolute;
                 width: 300px;
-                height: 90%;
+                height: 100%;
 				left: 50%;
 				margin-left: -150px;
 				
@@ -244,7 +244,7 @@
      
 
       function render() {
-        context.gl.clearColor(0.9, 0.9, 0.9, 1);
+        context.gl.clearColor(1, 1, 1, 1);
         //context.gl.clear(context.gl.COLOR_BUFFER_BIT);
         //context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
@@ -960,40 +960,40 @@ vkBridge.send('VKWebAppShowOrderBox',
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Строим первую башню"
 					}else if (progress < 0.2)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Концентрируем магическую энергию"
 					}else if (progress < 0.3)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Открываем врата призыва героя"
 														  
 					}else if (progress < 0.4)
 					{
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Ищем наилучшие кристаллы для башен"
 														
 													
 					}else if (progress < 0.5)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Собираем золото для героя"
 					}else if (progress < 0.6)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Увеличиваем урон"
 												  
 					}else if (progress < 0.7)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Повышаем шансы в рулетке"
 														
 					}else if (progress < 0.8)
 					{
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Передаем все дела в руки героя"
 													  
 													  
 		  

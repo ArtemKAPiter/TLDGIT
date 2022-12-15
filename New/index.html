@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@ArtemKAPiter 
-ArtemKAPiter
-/
-VkGameTest
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-VkGameTest/New/index.html
-@ArtemKAPiter
-ArtemKAPiter WAd
-Latest commit c0d3d7d 16 minutes ago
- History
- 1 contributor
-1044 lines (801 sloc)  30.9 KB
-
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
@@ -233,16 +203,16 @@ Latest commit c0d3d7d 16 minutes ago
 			var skeleton = null;
 			var animationState = null;
 
-			assetManager.loadText("sky.json");
-			assetManager.loadTextureAtlas("sky.atlas");
+			assetManager.loadText("crystal.json");
+			assetManager.loadTextureAtlas("crystal.atlas");
 
 			requestAnimationFrame(load);
 
 			 function load() {
         if (assetManager.isLoadingComplete()) {
-          var atlas = assetManager.get("sky.atlas");
+          var atlas = assetManager.get("crystal.atlas");
           var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("crystal.json"));
           var animationStateData = new spine.AnimationStateData(skeletonData);
           animationStateData.defaultMix = 0.3;
 

@@ -208,59 +208,59 @@
 
 			requestAnimationFrame(load);
 
-			function load() {
-				if (assetManager.isLoadingComplete()) {
-					var atlas = assetManager.get("sky.atlas");
-					var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
-					var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
-					var animationStateData = new spine.AnimationStateData(skeletonData);
-					animationStateData.defaultMix = 0.3;
+			 function load() {
+        if (assetManager.isLoadingComplete()) {
+          var atlas = assetManager.get("sky.atlas");
+          var skeletonJson = new spine.SkeletonJson(new spine.AtlasAttachmentLoader(atlas));
+          var skeletonData = skeletonJson.readSkeletonData(assetManager.get("sky.json"));
+          var animationStateData = new spine.AnimationStateData(skeletonData);
+          animationStateData.defaultMix = 0.3;
 
-					skeleton = new spine.Skeleton(skeletonData);
-					animationState = new spine.AnimationState(animationStateData);
-					var offset = new spine.Vector2();
-					var size = new spine.Vector2();
-					skeleton.updateWorldTransform();
-				skeleton.getBounds(offset, size, []);
-					//renderer.camera.position.x = offset.x + size.x / 2;
-					renderer.camera.position.y = offset.y + size.y / 2 - 100;
-					if (window.innerWidth > window.innerHeight) // десктоп
-					{
-						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
-					}else{
-						//renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
-					}
+          skeleton = new spine.Skeleton(skeletonData);
+          animationState = new spine.AnimationState(animationStateData);
+          var offset = new spine.Vector2();
+          var size = new spine.Vector2();
+          skeleton.updateWorldTransform();
+          skeleton.getBounds(offset, size, []);
+          renderer.camera.position.x = offset.x + size.x / 2;
+          renderer.camera.position.y = offset.y + size.y / 2 - 100;
+          if (window.innerWidth > window.innerHeight) // десктоп
+          {
+            renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.45;
+          }else{
+            renderer.camera.zoom = (size.x > size.y ? size.x / canvas.width : size.y / canvas.height) * 0.75;
+          }
 
-					animationState.setAnimation(0, "animation", true);
-					/*animationState.addAnimation(0, "animation", true, 1);
-					animationState.addAnimation(0, "animation", true, 3);*/
+          animationState.setAnimation(0, "animation", true);
+          /*animationState.addAnimation(0, "animation", true, 1);
+          animationState.addAnimation(0, "animation", true, 3);*/
 
-					requestAnimationFrame(render);
-				} else {
-					loadingScreen.draw(false);
-					requestAnimationFrame(load);
-				}
-			}
-	   
+          requestAnimationFrame(render);
+        } else {
+          loadingScreen.draw(false);
+          requestAnimationFrame(load);
+        }
+      }
+     
 
-			function render() {
-				context.gl.clearColor(1.0, 1.0, 1.0, 1);
-				//context.gl.clear(context.gl.COLOR_BUFFER_BIT);
-				//context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
+      function render() {
+        context.gl.clearColor(0.9, 0.9, 0.9, 1);
+        //context.gl.clear(context.gl.COLOR_BUFFER_BIT);
+        //context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
-				time.update();
-				animationState.update(time.delta);
-				animationState.apply(skeleton);
-				skeleton.updateWorldTransform();
+        time.update();
+        animationState.update(time.delta);
+        animationState.apply(skeleton);
+        skeleton.updateWorldTransform();
 
-				renderer.begin();
-				renderer.drawSkeleton(skeleton, true);
-				renderer.end();
+        renderer.begin();
+        renderer.drawSkeleton(skeleton, true);
+        renderer.end();
 
-				loadingScreen.draw(true);
+        loadingScreen.draw(true);
 
-				requestAnimationFrame(render);
-			}
+        requestAnimationFrame(render);
+      }
 
 			window.addEventListener('resize',function(){
 				

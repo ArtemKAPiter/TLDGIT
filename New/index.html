@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>TowerOfMagic</title>
+        <title>Tower of magic</title>
         <style type="text/css">
             html, body {
 				background: #c7b39b url(Background_Tower_of_Magic300by90.png);
@@ -30,8 +30,8 @@
 			}
             #loading {
 				position: absolute;
-                width: 100%;
-                height: 100%;
+                width: 90%;
+                height: 90%;
 				left: 5%;
 				top: -65px;
 				text-align:  center;
@@ -52,7 +52,7 @@
 			#loadingInfo {
 				position: absolute;
                 width: 300px;
-                height: 100%;
+                height: 90%;
 				left: 50%;
 				margin-left: -150px;
 				
@@ -72,19 +72,12 @@
 				justify-content: center;
             }
 			.block {
-				position: absolute;
-	
-
-				width: 450px;
-				height: 100%;
-
-				top: 50%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%);
-				z-index: 1;
 				
-
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0px;
+                left: 0px;
 
 			}
 			.blockIMG {
@@ -112,8 +105,8 @@
 		<script src="./dist/iife/spine-webgl.js"></script>
 		<script src="Build/New.loader.js"></script>
 		<img class=blockIMG id="loading-canvas" src="./Screenshot.png" align=”middle”>
-		<canvas class=block id="cnv" width='100' height='100' top: 0px;  >Browser Not Supported :(</canvas>
-		<canvas id="canvas" class="fullscreen" top: 0px; ></canvas>
+		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
+		<canvas id="canvas" class="fullscreen"></canvas>
 		
 		
        
@@ -335,6 +328,7 @@
   function SetSize(){
   canvas.style.width  = '100%'
 	canvas.style.height = '100%';
+	
   }
 
 
@@ -960,40 +954,40 @@ vkBridge.send('VKWebAppShowOrderBox',
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Строим первую башню"
 					}else if (progress < 0.2)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Концентрируем магическую энергию"
 					}else if (progress < 0.3)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Открываем врата призыва героя"
 														  
 					}else if (progress < 0.4)
 					{
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Калибруем прицел башни"
 														
 													
 					}else if (progress < 0.5)
 					{
 									 
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Из последних сил сдерживаем врагов!"
 					}else if (progress < 0.6)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Надеемся на твою скорую помощь"
 												  
 					}else if (progress < 0.7)
 					{
 									 
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Собираем золото для героя"
 														
 					}else if (progress < 0.8)
 					{
-						loadingTextInfo.innerHTML = "..."
+						loadingTextInfo.innerHTML = "Увеличиваем урон"
 													  
 													  
 		  
@@ -1045,18 +1039,5 @@ vkBridge.send('VKWebAppShowOrderBox',
         </script>
     </body>
 </html>
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-VkGameTest/index.html at master · ArtemKAPiter/VkGameTest
+
+

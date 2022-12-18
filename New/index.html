@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>{{{ PRODUCT_NAME }}}</title>
+        <title>Tower of magic</title>
         <style type="text/css">
             html, body {
-				background: #c7b39b url(pattern_corgi.png);
+				background: #c7b39b url(Background_Tower_of_Magic300by90.png);
 				background-size: 30%;
 				-webkit-touch-callout: none;
 				-webkit-user-select: none;
@@ -32,7 +32,7 @@
 				position: absolute;
                 width: 90%;
                 height: 90%;
-				left: 25%;
+				left: 5%;
 				top: -65px;
 				text-align:  center;
 
@@ -48,17 +48,6 @@
 				justify-content: center;
 				
 				
-            }
-		.fullscreen {
-                position: absolute;
-	width: 100%;
-	height: 100%;
-
-				top: 0%;
-				left: 0%;
-				margin-right: 0%;
-				transform: translate(-50%, -50%);
-				z-index: 0
             }
 			#loadingInfo {
 				position: absolute;
@@ -92,7 +81,7 @@
 
 			}
 			.blockIMG {
-				position: top;
+				position: absolute;
 	
 
 				width: 450px;
@@ -116,7 +105,7 @@
 		<script src="./dist/iife/spine-webgl.js"></script>
 		<script src="Build/New.loader.js"></script>
 		<img class=blockIMG id="loading-canvas" src="./Screenshot.png" align=”middle”>
-		<canvas class=block id="cnv" width="550" height="920">Browser Not Supported :(</canvas>
+		<canvas class=block id="cnv" width="100%" height="100%">Browser Not Supported :(</canvas>
 		<canvas id="canvas" class="fullscreen"></canvas>
 		
 		
@@ -160,6 +149,8 @@
 			let loadingTextInfo = document.getElementById('loadingInfo')
 			
 			var canvasSpine = document.getElementById('cnv');
+		
+		canvasSpine.style.left = '-5%';
 
             const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
@@ -181,6 +172,42 @@
 			var width = window.innerWidth;
 			var height = window.innerHeight;
 			var ratio = width / height;
+		
+		
+			if (window.innerWidth > window.innerHeight) // десктоп
+			{
+				//const wd = (window.innerHeight/20)*9;
+
+				canvas.style.width  = '100%';
+				canvas.style.height = '100%';
+
+				loadingCanvas.style.width  = '100%';
+				loadingCanvas.style.height = '100%';
+
+				canvasSpine.style.width  = '100%';
+				canvasSpine.style.height = '100%';
+			}else{ // портрет
+				if (ratio < 0.55)
+				{
+					canvas.style.width  = '100%';
+					canvas.style.height = '100%';
+
+					loadingCanvas.style.width  = '100%';
+					loadingCanvas.style.height = '100%';
+
+					canvasSpine.style.width  = '100%';
+					canvasSpine.style.height = '100%';
+				}else{
+					canvas.style.width  = '100%';
+					canvas.style.height = '100%';
+
+					loadingCanvas.style.width  = '100%';
+					loadingCanvas.style.height = '100%';
+
+					canvasSpine.style.width  = '100%';
+					canvasSpine.style.height = '100%';
+				}
+			}
 
 			//alert("ratio: "+ratio+"\n"+ (window.innerHeight * ratio));
 			
@@ -195,9 +222,15 @@
 				canvasSpine.style.height = '100%';
 
 			
-
-			canvasSpine.width = canvasSpine.clientWidth; 
-			canvasSpine.height = canvasSpine.clientHeight;
+                       if (window.innerWidth > window.innerHeight) // десктоп
+				{
+			canvasSpine.width = canvasSpine.clientWidth  *2; 
+			canvasSpine.height  = canvasSpine.clientHeight *2;
+				}
+		else{
+		canvasSpine.width = canvasSpine.clientWidth /2; 
+			canvasSpine.height  = canvasSpine.clientHeight /2;
+		}
 			var context = new spine.ManagedWebGLRenderingContext(canvasSpine);
 			var assetManager = new spine.AssetManager(context, "./data/crystal/");
 			var renderer = new spine.SceneRenderer(canvasSpine, context);
@@ -220,6 +253,7 @@
           var animationStateData = new spine.AnimationStateData(skeletonData);
           animationStateData.defaultMix = 0.3;
 
+		
           skeleton = new spine.Skeleton(skeletonData);
           animationState = new spine.AnimationState(animationStateData);
           var offset = new spine.Vector2();
@@ -248,8 +282,8 @@
      
 
       function render() {
-        context.gl.clearColor(1, 1, 1, 1);
-        //context.gl.clear(context.gl.COLOR_BUFFER_BIT);
+       context.gl.clearColor(0.9, 0.9, 0.9,0.9);
+       // context.gl.clear(context.gl.COLOR_BUFFER_BIT);
         //context.clearRect(0, 0, canvasSpine.width,canvasSpine.height);
 
         time.update();
@@ -268,13 +302,29 @@
 
 			window.addEventListener('resize',function(){
 				
-				
-				canvas.style.width  = '100%';
+				if (window.innerWidth > window.innerHeight) // десктоп
+				{
+					canvas.style.width  = '100%';
 					canvas.style.height = '100%';
 						
 					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
-
+				}else{ // портрет
+					if (ratio < 0.55)
+					{
+						canvas.style.width  = '100%';
+						canvas.style.height = '100%';
+						
+						loadingCanvas.style.width  = '100%';
+						loadingCanvas.style.height = '100%';
+					}else{
+						canvas.style.width  = '100%';
+						canvas.style.height = '100%';
+						
+						loadingCanvas.style.width  = '100%';
+						loadingCanvas.style.height = '100%';
+					}
+				}
 			});
 			
 			
@@ -309,8 +359,7 @@
 									unityInstance.SendMessage('Bridge', 'OnRewardedStateChanged', state) 
 								}
 							})
-
-						bridge.game.on(
+					bridge.game.on(
 							'visibility_state_changed', 
 							state => { 
 								if (unityInstance) {
@@ -353,6 +402,7 @@ canvas.style.width  = '100%'
     if (data.result) {
      canvas.style.width  = '100%'
 	canvas.style.height = '100%';
+	    
 	 
     } else {
       console.log("error");
@@ -381,6 +431,8 @@ vkBridge
                     bridgeExtensions.vk.banner.show(data, position)
 					
 					document.getElementById("vk-banner-container").style.zoom = "0.5";
+		    document.getElementById("vk-banner-container").style.left = '20%';
+		    
 					canvas.style.height = '93%';
 })
         })
@@ -1010,7 +1062,7 @@ vkBridge.send('VKWebAppShowOrderBox',
 	 
 						loadingText.innerHTML = Math.ceil(progress * 100) + '%'
 				}else{
-					loadingTextInfo.innerHTML = "Запускаем игру..."
+					loadingTextInfo.innerHTML = "Запускаем игру"
 					loadingText.innerHTML = Math.ceil(progress * 100) + '%'
 				}
 			}
@@ -1025,8 +1077,8 @@ vkBridge.send('VKWebAppShowOrderBox',
                     companyName: 'ReallShin',
                     productName: 'TowerOfMagic',
                     productVersion: '1.19',
-                    // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-                    // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+                     matchWebGLToCanvasSize: true, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+                     devicePixelRatio: 1.7, // Uncomment this to override low DPI rendering on high DPI displays.
                 },
                 onUnityLoadingProgressChanged)
             .then((unityInstance) => {
@@ -1036,6 +1088,7 @@ vkBridge.send('VKWebAppShowOrderBox',
 				loadingText.remove()
 				loadingTextInfo.remove()
 				canvasSpine.remove()
+		                LoadVkBanner();
 							 
             })
             .catch((error) => {
@@ -1050,3 +1103,5 @@ vkBridge.send('VKWebAppShowOrderBox',
         </script>
     </body>
 </html>
+
+

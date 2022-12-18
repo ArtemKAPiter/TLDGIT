@@ -308,7 +308,10 @@
 						
 					loadingCanvas.style.width  = '100%';
 					loadingCanvas.style.height = '100%';
+					NewHorizontal();
 				}else{ // портрет
+				
+				NewPortrait();
 					if (ratio < 0.55)
 					{
 						canvas.style.width  = '100%';
@@ -613,9 +616,13 @@ vkBridge.send('VKWebAppShowOrderBox',
       }
 
 
+      function NewHorizontal(){
+	  unityInstance.SendMessage('BuyMoneyVK', 'NewHorizontal');
+	  }
 
-
-
+         function NewPortrait(){
+	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
+	  }
 
 
 

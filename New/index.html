@@ -116,7 +116,6 @@
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 		
-<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
 
 
 	
@@ -470,7 +469,16 @@ vkBridge
 		
 			 
 		function GetItem10(){ 
-    FAPI.UI.showPayment("Кристаллы", "С ними всегда проще", 777, 170, null, null, "ok", "true");
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_10', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity10();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
             
 function GetItem15(){ 
@@ -554,7 +562,24 @@ vkBridge.send('VKWebAppShowOrderBox',
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
-			
+	
+
+ function SendToPage(){ 
+vkBridge.send('VKWebAppShare', {
+  link: 'https://vk.com/games/app51415507'
+  })
+  .then((data) => { 
+    if (data.result) {
+      SendMessageSendedToPage();
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+
+
+      }	
 			   
 			
 
@@ -595,7 +620,24 @@ vkBridge.send('VKWebAppShowOrderBox',
          function NewPortrait(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
 	  }
+      
+	  function SendMessageSendedToPage(){
+	  unityInstance.SendMessage('BuyMoneyVK', 'SendedToPage');
+	  }
+	  
 
+    function AddToFavourite(){
+	vkBridge.send('VKWebAppAddToFavorites')
+  .then((data) => { 
+    if (data.result) {
+      // Мини-приложение или игра добавлены в избранное
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+	}
 
 
 

@@ -116,6 +116,7 @@
 <script src="./instant-games-bridge-vk-banner-extension.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 		
+<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
 
 
 	
@@ -469,16 +470,7 @@ vkBridge
 		
 			 
 		function GetItem10(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'sale_item_10', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity10();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
+    FAPI.UI.showPayment("Кристаллы", "С ними всегда проще", 777, 170, null, null, "ok", "true");
       }
             
 function GetItem15(){ 

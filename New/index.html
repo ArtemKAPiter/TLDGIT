@@ -581,7 +581,7 @@ vkBridge.send('VKWebAppShare', {
 	  
 	  
 	  function InviteFriends(){ 
-bridge.send('VKWebAppRecommend')
+vkBridge.send('VKWebAppRecommend')
   .then((data) => { 
     if (data.result) {
       
@@ -591,12 +591,10 @@ bridge.send('VKWebAppRecommend')
     // Ошибка
     console.log(error);
   });
-
-
       }
 	  
 	  function AddToFavourite(){ 
-bridge.send('VKWebAppAddToFavorites')
+vkBridge.send('VKWebAppAddToFavorites')
   .then((data) => { 
     if (data.result) {
       // Мини-приложение или игра добавлены в избранное

@@ -562,15 +562,29 @@ vkBridge.send('VKWebAppShowOrderBox',
 	  }) 
   .catch( (e) => {console.log('Ошибка!', e) });
       }
-	
-
- function SendToPage(){ 
+	  
+	  
+			function SendToPage(){ 
 vkBridge.send('VKWebAppShare', {
   link: 'https://vk.com/games/app51415507'
   })
   .then((data) => { 
     if (data.result) {
-      SendMessageSendedToPage();
+      SendedToPage();
+    }
+  })
+  .catch((error) => {
+    
+    console.log(error);
+  });
+      }
+	  
+	  
+	  function InviteFriends(){ 
+bridge.send('VKWebAppRecommend')
+  .then((data) => { 
+    if (data.result) {
+      
     }
   })
   .catch((error) => {
@@ -579,10 +593,26 @@ vkBridge.send('VKWebAppShare', {
   });
 
 
-      }	
-			   
-			
+      }
+	  
+	  function AddToFavourite(){ 
+bridge.send('VKWebAppAddToFavorites')
+  .then((data) => { 
+    if (data.result) {
+      // Мини-приложение или игра добавлены в избранное
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
 
+
+
+
+      }
+	  
+							  
 
 			 function SendMessageToUnity10(){ 
          unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
@@ -620,24 +650,11 @@ vkBridge.send('VKWebAppShare', {
          function NewPortrait(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
 	  }
-      
-	  function SendMessageSendedToPage(){
+	  
+	  function SendedToPage(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'SendedToPage');
 	  }
-	  
 
-    function AddToFavourite(){
-	vkBridge.send('VKWebAppAddToFavorites')
-  .then((data) => { 
-    if (data.result) {
-      // Мини-приложение или игра добавлены в избранное
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
-	}
 
 
 

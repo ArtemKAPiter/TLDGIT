@@ -564,51 +564,7 @@ vkBridge.send('VKWebAppShowOrderBox',
       }
 	  
 	  
-			function SendToPage(){ 
-vkBridge.send('VKWebAppShare', {
-  link: 'https://vk.com/games/app51415507'
-  })
-  .then((data) => { 
-    if (data.result) {
-      SendedToPage();
-    }
-  })
-  .catch((error) => {
-    
-    console.log(error);
-  });
-      }
-	  
-	  
-	  function InviteFriends(){ 
-vkBridge.send('VKWebAppRecommend')
-  .then((data) => { 
-    if (data.result) {
-      
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
-      }
-	  
-	  function AddToFavourite(){ 
-vkBridge.send('VKWebAppAddToFavorites')
-  .then((data) => { 
-    if (data.result) {
-      // Мини-приложение или игра добавлены в избранное
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
 
-
-
-
-      }
 	  
 							  
 
@@ -649,9 +605,7 @@ vkBridge.send('VKWebAppAddToFavorites')
 	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
 	  }
 	  
-	  function SendedToPage(){
-	  unityInstance.SendMessage('BuyMoneyVK', 'SendedToPage');
-	  }
+	
 
 
 

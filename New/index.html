@@ -117,103 +117,96 @@
                     }
                 }, 100)
             }
-			
-			
-			
-			
 			function GetItem5(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'corgi_sale_item_5', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity5();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  function GetItem10(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'corgi_sale_item_10', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity10();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  function GetItem20(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'corgi_sale_item_20', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity20();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	   function GetItem30(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'corgi_sale_item_30', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity30();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	  
-	  	   function GetItem50(){ 
-vkBridge.send('VKWebAppShowOrderBox', 
-  { 
-    type: 'item', 
-    item: 'corgi_sale_item_50', 
-  })
-  .then( (data) => {
-	  console.log('Покупка состоялась.', data) 
-	  SendMessageToUnity50();
-	  }) 
-  .catch( (e) => {console.log('Ошибка!', e) });
-      }
-	  
-	
-	  
+				vkBridge.send('VKWebAppShowOrderBox', 
+				{ 
+					type: 'item', 
+					item: 'corgi_sale_item_5', 
+				})
+				.then( (data) => {
+					console.log('Покупка состоялась.', data) 
+					SendMessageToUnity5();
+				}) 
+				.catch( (e) => {console.log('Ошибка!', e) });
+			}
+					  
+			function GetItem10(){ 
+				vkBridge.send('VKWebAppShowOrderBox', 
+				{ 
+					type: 'item', 
+					item: 'corgi_sale_item_10', 
+				})
+				.then( (data) => {
+					console.log('Покупка состоялась.', data) 
+					SendMessageToUnity10();
+				}) 
+				.catch( (e) => {console.log('Ошибка!', e) });
+			}
+					  
+			function GetItem20(){ 
+				vkBridge.send('VKWebAppShowOrderBox', 
+				{ 
+					type: 'item', 
+					item: 'corgi_sale_item_20', 
+				})
+				.then( (data) => {
+					console.log('Покупка состоялась.', data) 
+					SendMessageToUnity20();
+				}) 
+				.catch( (e) => {console.log('Ошибка!', e) });
+			}
+					  
+			function GetItem30(){ 
+				vkBridge.send('VKWebAppShowOrderBox', 
+				{ 
+					type: 'item', 
+					item: 'corgi_sale_item_30', 
+				})
+				.then( (data) => {
+					console.log('Покупка состоялась.', data) 
+					SendMessageToUnity30();
+				}) 
+				.catch( (e) => {console.log('Ошибка!', e) });
+			}
+					  
+					  
+			function GetItem50(){ 
+				vkBridge.send('VKWebAppShowOrderBox', 
+				{ 
+					type: 'item', 
+					item: 'corgi_sale_item_50', 
+				})
+				.then( (data) => {
+					console.log('Покупка состоялась.', data) 
+					SendMessageToUnity50();
+				}) 
+				.catch( (e) => {console.log('Ошибка!', e) });
+			}
 	  
 	
 	  
-	  function SendMessageToUnity5(){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney5');
-      }
 	  
-	  function SendMessageToUnity10(){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
-      }
+	
 	  
-	  function SendMessageToUnity20(){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney20');
-      }
-	  
-	  function SendMessageToUnity30){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney30');
-      }
-	  
-	  function SendMessageToUnity50){ 
-         unityInstance.SendMessage('BuyMoneyVK', 'GetMoney50');
-      }
-	  
-
-			
+			function SendMessageToUnity5(){ 
+				unityInstance.SendMessage('BuyMoneyVK', 'GetMoney5');
+			}
+			  
+			function SendMessageToUnity10(){ 
+				unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
+			}
+			  
+			function SendMessageToUnity20(){ 
+				unityInstance.SendMessage('BuyMoneyVK', 'GetMoney20');
+			}
+			  
+			function SendMessageToUnity30(){ 
+				unityInstance.SendMessage('BuyMoneyVK', 'GetMoney30');
+			}
+			  
+			function SendMessageToUnity50(){ 
+				unityInstance.SendMessage('BuyMoneyVK', 'GetMoney50');
+			}
 
             window.addEventListener('pointerdown', () => {
                 window.focus()
@@ -230,14 +223,14 @@ vkBridge.send('VKWebAppShowOrderBox',
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/New.loader.js'
+                    unityLoader.src = 'Build/v0.01.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/New.data',
-                                frameworkUrl: 'Build/New.framework.js',
-                                codeUrl: 'Build/New.wasm',
+                                dataUrl: 'Build/v0.01.data',
+                                frameworkUrl: 'Build/v0.01.framework.js',
+                                codeUrl: 'Build/v0.01.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'BearsComGames',
                                 productName: 'CorgiTown',
@@ -327,8 +320,6 @@ vkBridge.send('VKWebAppShowOrderBox',
                         sendMessageToUnity('OnAuthorizeCompleted', 'false')
                     })
             }
-			
-			
 
 
             // game

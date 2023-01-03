@@ -381,11 +381,25 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
          
           function() {
               alert("Инициализация прошла успешно");
+			  
           },
           function(error) {
               alert("Ошибка инициализации");
           }
 );
+		  }
+		  
+		  
+		  
+		  
+		  
+		  function LoadOndoAd(){
+		  FAPI.UI.loadAd();
+		  }
+		  
+		  
+		  function CheckPlatformID(){
+		  SendURLToUnity();
 		  }
 
 
@@ -396,11 +410,11 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
       }
             
 function GetItem15(){ 
-      FAPI.UI.loadAd();
+      
       }
 	  
 	  function GetItem25(){ 
-FAPI.UI.showLoadedAd()
+
       }
 	  
 	  
@@ -410,7 +424,7 @@ FAPI.UI.showLoadedAd()
 	  
 	  
 	  function GetItem80(){ 
-         FAPI.UI.showInvite("Поиграй в мою игру!", "arg1=val1");
+         FAPI.UI.showInvite("Я играю в Tower Of Magic, давай со мной!", "arg1=val1");
       } 
 	  
 	  
@@ -423,6 +437,12 @@ FAPI.UI.showLoadedAd()
 	  function GetItemNoAds(){ 
 
       }
+	  
+	  function ShowRewardAdOdno(){
+	  FAPI.UI.showLoadedAd();
+	  SendMessageToUnityRewardAdShowed();
+	  LoadOndoAd();
+	  }
 	  
 	  
 
@@ -464,6 +484,14 @@ FAPI.UI.showLoadedAd()
 
          function NewPortrait(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
+	  }
+	  
+	  function SendURLToUnity(){
+	  unityInstance.SendMessage('InitBrige', 'GetPlatformURL',window.location.hostname);
+	  }
+	  
+	  function SendMessageToUnityRewardAdShowed(){
+	  unityInstance.SendMessage('BuyMoneyVK', 'CheckrewardAd');
 	  }
 	  
 	

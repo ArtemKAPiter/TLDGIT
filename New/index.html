@@ -396,25 +396,26 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
       }
             
 function GetItem15(){ 
-
+      FAPI.UI.loadAd();
       }
 	  
 	  function GetItem25(){ 
-
+FAPI.UI.showLoadedAd()
       }
 	  
 	  
 	  function GetItem45(){ 
-
+      FAPI.UI.showPayment("Яблоко", "Это очень вкусно!", "sale_item_75", 75, null, null, "ok", "true");
       }
 	  
 	  
 	  function GetItem80(){ 
-
-      }
+         FAPI.UI.showInvite("Поиграй в мою игру!", "arg1=val1");
+      } 
 	  
 	  
 	  function GetItem140(){ 
+          FAPI.UI.showRatingDialog();
 
       }
 	  

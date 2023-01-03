@@ -105,6 +105,9 @@
 		<canvas class=block id="cnv" width="100%" height="100%">Browser Not Supported :(</canvas>
 		<canvas id="canvas" class="fullscreen"></canvas>
 		
+		
+		<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
+
           </head>
 
 		
@@ -369,6 +372,21 @@
 						}
 					})
 }
+
+
+          function InitOdno(){
+		  
+		  var rParams = FAPI.Util.getRequestParameters();
+FAPI.init(rParams["api_server"], rParams["apiconnection"],
+         
+          function() {
+              alert("Инициализация прошла успешно");
+          },
+          function(error) {
+              alert("Ошибка инициализации");
+          }
+);
+		  }
 
 
 		
@@ -919,6 +937,7 @@ function GetItem15(){
 				loadingText.remove()
 				loadingTextInfo.remove()
 				canvasSpine.remove()
+				InitOdno();
 							 
             })
             .catch((error) => {

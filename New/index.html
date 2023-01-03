@@ -401,6 +401,15 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		  function CheckPlatformID(){
 		  SendURLToUnity();
 		  }
+		  
+		  
+		  function RateGameOdno(){
+		  FAPI.UI.showRatingDialog();
+		  }
+		  
+		  function InviteFriendsOdno(options){
+		   FAPI.UI.showInvite("Я зачистил уже " + options +" монстров! А сколько сможешь ты", "arg1=val1");
+		  }
 
 
 		
@@ -424,12 +433,12 @@ function GetItem15(){
 	  
 	  
 	  function GetItem80(){ 
-         FAPI.UI.showInvite("Я играю в Tower Of Magic, давай со мной!", "arg1=val1");
+        
       } 
 	  
 	  
 	  function GetItem140(){ 
-          FAPI.UI.showRatingDialog();
+          
 
       }
 	  

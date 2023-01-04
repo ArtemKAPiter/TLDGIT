@@ -404,11 +404,13 @@
 		  FAPI.UI.showRatingDialog();
 		  }
 		  
-		  function InviteFriendsOdno(){		   
+		  function InviteFriendsOdno(options){		  
+               FAPI.UI.showInvite("Я зачистил уже " + options + " врагов в Tower Of Magic" , "arg1=val1",API_callback);
 		  }
 		  
 		  function LoadAd(){
-		  FAPI.UI.loadAd();
+		  FAPI.UI.loadAd(API_callback);
+
                           }
 
 
@@ -462,12 +464,52 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 
                 }
                 break;
+				
+				
+				
+				case "1234567890":
+                if (data.result.status === "ok") {
+                    alert("One friend called");
+					SendMessageToUnity10();
+					
+                    
+                } else {
+                    alert("No friend called");
+                    
+                }
+                break;
+				
+				case "1234567890,1234567891":
+                if (data.result.status === "ok") {
+                    alert("More than one friend called");
+					SendMessageToUnity10();
+					
+                    
+                } else {
+                    alert("No friend called");
+                    
+                }
+                break;
+				
+				case "noUsers":
+                if (data.result.status === "ok") {
+                    alert("No friend was called");
+					
+					SendMessageToUnity45();
+                    
+                } else {
+                    alert("No friend called");
+                    
+                }
+                break;
+				
+				
 		
             case "complete":
                 if (data.result.status === "ok") {
                     alert(" OK Ads initialization complete");
 					SendMessageToUnityRewardAdShowed();
-					LoadAd();
+					
                     
                 } else {
                     alert(" OK Ads failed to initialize");
@@ -579,7 +621,7 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 	  
 	  function ShowRewardAdOdno(){
 	  FAPI.UI.showLoadedAd(API_callback);
-	  LoadAd();
+	  
 	  }
 	  
        

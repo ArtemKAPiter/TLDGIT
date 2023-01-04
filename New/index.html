@@ -138,6 +138,8 @@
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
 			
+			let _purchaseindex = 0;
+			
 			
 			
 
@@ -476,7 +478,34 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 
                case "{'amount':'5'}" :
                 if (data.result.status === "ok") {
-                        SendMessageToUnity10();                    
+				switch(_purchaseindex){
+				  
+				  case 10:
+				  SendMessageToUnity10();
+				  break;
+				  
+				  case 15:
+				SendMessageToUnity15();
+				break;
+				
+				case 25:
+				SendMessageToUnity25();
+				break;
+				
+				case 45:
+				SendMessageToUnity45();
+				break;
+				
+				case 80:
+				SendMessageToUnity80();
+				break;
+				
+				case 140:
+				GetItemNoAds();
+				break;
+				
+				}
+                                            
                 } else {
                     alert("Bad Purchase");
                 }
@@ -495,33 +524,39 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
     }
 
     function GetItem10() {
+	_purchaseindex = 10;
     FAPI.UI.showPayment("170 Кристаллов ", "Вы получаете 170 кристаллов на свой счёт!", 10, 75, null, null, "ok", "true");
     }
 
     function GetItem15() {
-        
+        _purchaseindex = 15;
+    FAPI.UI.showPayment("360 Кристаллов ", "Вы получаете 360 кристаллов на свой счёт!", 10, 110, null, null, "ok", "true");
     }
 
     function GetItem25() {
-        
+	_purchaseindex = 25;
+        FAPI.UI.showPayment("950 Кристаллов ", "Вы получаете 950 кристаллов на свой счёт!", 10, 180, null, null, "ok", "true");
     }
 
     function GetItem45() {
-        
+	_purchaseindex = 45;
+        FAPI.UI.showPayment("2000 Кристаллов ", "Вы получаете 2000 кристаллов на свой счёт!", 10, 340, null, null, "ok", "true");
     }
 
     function GetItem80() {
-        
+	_purchaseindex = 80;
+        FAPI.UI.showPayment("4000 Кристаллов ", "Вы получаете 4000 кристаллов на свой счёт!", 10, 600, null, null, "ok", "true");
     }
 
     function GetItemNoAds() {
-        
+	_purchaseindex = 140;
+        FAPI.UI.showPayment("Отключение рекламы ", "Вся реклама в игре, кроме той, которая дает награду навсегда будет заблокирована!", 10, 75, null, null, "ok", "true");
     }
 
     
 	  
 	  function ShowRewardAdOdno(){
-
+      
 	  FAPI.UI.showLoadedAd(API_callback);
 	  
 	  }

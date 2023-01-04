@@ -474,6 +474,17 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
                     
                 }
                 break;
+            case "skip":
+                if (data.result.status === "ok") {
+                    if (data.result.code === "ready") {
+                        alert(" Ad is ready to be shown");
+                        
+                    }
+                } else {
+                    alert("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
+                    
+                }
+                break;  
               
 
                case "{'amount':'5'}" :
@@ -519,8 +530,10 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 				case "cancel" :
                 if (data.result.status === "error") {
                         alert("Bad Purchase");
+						console.log("Bad Purchase");
                 } else {
                     alert("Bad Purchase");
+					console.log("Bad Purchase");
                 }
                 break;
 				

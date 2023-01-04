@@ -106,7 +106,8 @@
 		<canvas id="canvas" class="fullscreen"></canvas>
 		
 		
-		<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
+		<script type="text/javascript" src="oksdk.js"></script>
+
 
           </head>
 
@@ -376,16 +377,19 @@
 
           function InitOdno(){
 		  
-		  var rParams = FAPI.Util.getRequestParameters();
-FAPI.init(rParams["api_server"], rParams["apiconnection"],
-         
-          function() {
-              alert("Инициализация прошла успешно");
-			  
-          },
-          function(error) {
-              alert("Ошибка инициализации");
-          }
+		var config = {
+    app_id: 0, // id приложения 
+    app_key: '' // публичный ключ приложения
+};
+
+OKSDK.init(
+    config, 
+    function () {
+        alert("Success Initialization");
+    }, 
+    function (error) {
+        //on error
+    }
 );
 		  }
 		  
@@ -394,8 +398,60 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		  
 		  
 		  function LoadOndoAd(){
-		  FAPI.UI.loadAd();
+		      OKSDK.Ads.init(null, adsCallback);
 		  }
+		  
+		  
+		  function adsCallback(message) {
+        if (!message.data) {
+            return;
+        }
+
+        var data = JSON.parse(message.data);
+
+        if (!data.call || !data.call.method) {
+            return;
+        }
+
+        if (!data.result || !data.result.status) {
+            return;
+        }
+
+        switch (data.call.method) {
+            case "init":
+                if (data.result.status === "ok") {
+                    console.log("OK Ads initialization complete");
+                    OKSDK.Ads.State.init = true;
+                } else {
+                    console.log("OK Ads failed to initialize");
+                    OKSDK.Ads.State.init = false;
+                }
+                break;
+            case "prepare":
+                if (data.result.status === "ok") {
+                    if (data.result.code === "ready") {
+                        console.log("Ad is ready to be shown");
+                        OKSDK.Ads.State.ready = true;
+                    }
+                } else {
+                    console.log("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
+                    OKSDK.Ads.State.ready = false;
+                }
+                break;
+            case "show":
+                ads_state.frame_element.style.display = "none";
+                if (data.result.status === "ok") {
+                    if (data.result.code === "complete") {
+                        console.log("Ad is successfully shown");
+                        OKSDK.Ads.State.ready = false;
+                    }
+                } else {
+                    console.log("An ad can't be shown. Status: " + data.result.status + ". Code: " + data.result.code);
+                    OKSDK.Ads.State.ready = false;
+                }
+                break;
+        }
+    }
 		  
 		  
 		  function CheckPlatformID(){
@@ -415,20 +471,74 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		
 			 
 		function GetItem10(){ 
-		SendMessageToUnity10();
+	      FAPI.UI.showPayment("Яблоко", "Это очень вкусно!", "sale_item_75", 75, null, null, "ok", "true");
+
       }
             
 function GetItem15(){ 
-      
-      }
-	  
-	  function GetItem25(){ 
 
       }
 	  
+	  function GetItem25(){ 
+           OKSDK.Ads.init(null, adsCallback);
+      }
+	  
+	  function adsCallback(message) {
+        if (!message.data) {
+            return;
+        }
+
+        var data = JSON.parse(message.data);
+
+        if (!data.call || !data.call.method) {
+            return;
+        }
+
+        if (!data.result || !data.result.status) {
+            return;
+        }
+
+        switch (data.call.method) {
+            case "init":
+                if (data.result.status === "ok") {
+                    alert("OK Ads initialization complete");
+					OKSDK.Ads.prepareMidroll();
+                    OKSDK.Ads.State.init = true;
+                } else {
+                    alert("OK Ads failed to initialize");
+                    OKSDK.Ads.State.init = false;
+                }
+                break;
+            case "prepare":
+                if (data.result.status === "ok") {
+                    if (data.result.code === "ready") {
+                        alert("Ad is ready to be shown");
+                        OKSDK.Ads.State.ready = true;
+                    }
+                } else {
+                    alert("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
+                    OKSDK.Ads.State.ready = false;
+                }
+                break;
+            case "show":
+                ads_state.frame_element.style.display = "none";
+                if (data.result.status === "ok") {
+                    if (data.result.code === "complete") {
+                        alert("Ad is successfully shown");
+                        OKSDK.Ads.State.ready = false;
+                    }
+                } else {
+                    alert("An ad can't be shown. Status: " + data.result.status + ". Code: " + data.result.code);
+                    OKSDK.Ads.State.ready = false;
+                }
+                break;
+        }
+    }
+	  
+	   
+	  
 	  
 	  function GetItem45(){ 
-      FAPI.UI.showPayment("Яблоко", "Это очень вкусно!", "sale_item_75", 75, null, null, "ok", "true");
       }
 	  
 	  
@@ -448,10 +558,11 @@ function GetItem15(){
       }
 	  
 	  function ShowRewardAdOdno(){
-	  FAPI.UI.showLoadedAd();
-	  SendMessageToUnityRewardAdShowed();
-	  LoadOndoAd();
+	  OKSDK.Ads.showMidroll(adsCallback)
 	  }
+	  
+       
+	  
 	  
 	  
 

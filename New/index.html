@@ -393,6 +393,9 @@
 		  function CheckPlatformID(){
 		  SendURLToUnity();
 		  }
+		  function ShowInterAdOdno(){
+		  FAPI.UI.showAd();
+		  }
 		  
 		  
 		  function RateGameOdno(){
@@ -469,22 +472,30 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
                     
                 }
                 break;
-            case "skip":
+              
+
+               case "{'amount':'5'}" :
                 if (data.result.status === "ok") {
-                    if (data.result.code === "ready") {
-                        alert(" Ad is ready to be shown");
-                        
-                    }
+                        SendMessageToUnity10();                    
                 } else {
-                    alert("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    
+                    alert("Bad Purchase");
                 }
-                break;          
+                break;  				
+				
+				
+				case "cancel" :
+                if (data.result.status === "error") {
+                        alert("Bad Purchase");
+                } else {
+                    alert("Bad Purchase");
+                }
+                break;
+				
         }
     }
 
     function GetItem10() {
-        
+    FAPI.UI.showPayment("170 Кристаллов ", "Вы получаете 170 кристаллов на свой счёт!", 10, 75, null, null, "ok", "true");
     }
 
     function GetItem15() {

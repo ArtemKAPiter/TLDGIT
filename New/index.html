@@ -107,11 +107,14 @@
 		
 		
 		<script type="text/javascript" src="oksdk.js"></script>
+        <script type="text/javascript" src="https://api.ok.ru/js/fapi5.js"></script>
 
 
-          </head>
+
+     
 
 		
+   
 
 
 	
@@ -127,7 +130,6 @@
      
 
 		
-		   
 
 
             let loadingOver = document.getElementById('loading-overlay')
@@ -253,6 +255,7 @@
           animationState = new spine.AnimationState(animationStateData);
           var offset = new spine.Vector2();
           var size = new spine.Vector2();
+		  
           skeleton.updateWorldTransform();
           skeleton.getBounds(offset, size, []);
           renderer.camera.position.x = offset.x + size.x / 2 + 50;
@@ -375,83 +378,16 @@
 }
 
 
-          function InitOdno(){
-		  
-		var config = {
-    app_id: 0, // id приложения 
-    app_key: '' // публичный ключ приложения
-};
-
-OKSDK.init(
-    config, 
-    function () {
-        alert("Success Initialization");
-    }, 
-    function (error) {
-        //on error
-    }
-);
-		  }
+        
 		  
 		  
 		  
 		  
 		  
-		  function LoadOndoAd(){
-		      OKSDK.Ads.init(null, adsCallback);
-		  }
 		  
 		  
-		  function adsCallback(message) {
-        if (!message.data) {
-            return;
-        }
-
-        var data = JSON.parse(message.data);
-
-        if (!data.call || !data.call.method) {
-            return;
-        }
-
-        if (!data.result || !data.result.status) {
-            return;
-        }
-
-        switch (data.call.method) {
-            case "init":
-                if (data.result.status === "ok") {
-                    console.log("OK Ads initialization complete");
-                    OKSDK.Ads.State.init = true;
-                } else {
-                    console.log("OK Ads failed to initialize");
-                    OKSDK.Ads.State.init = false;
-                }
-                break;
-            case "prepare":
-                if (data.result.status === "ok") {
-                    if (data.result.code === "ready") {
-                        console.log("Ad is ready to be shown");
-                        OKSDK.Ads.State.ready = true;
-                    }
-                } else {
-                    console.log("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    OKSDK.Ads.State.ready = false;
-                }
-                break;
-            case "show":
-                ads_state.frame_element.style.display = "none";
-                if (data.result.status === "ok") {
-                    if (data.result.code === "complete") {
-                        console.log("Ad is successfully shown");
-                        OKSDK.Ads.State.ready = false;
-                    }
-                } else {
-                    console.log("An ad can't be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    OKSDK.Ads.State.ready = false;
-                }
-                break;
-        }
-    }
+		  
+		
 		  
 		  
 		  function CheckPlatformID(){
@@ -463,27 +399,41 @@ OKSDK.init(
 		  FAPI.UI.showRatingDialog();
 		  }
 		  
-		  function InviteFriendsOdno(options){
-		   FAPI.UI.showInvite("Я зачистил уже " + options +" монстров! А сколько сможешь ты", "arg1=val1");
+		  function InviteFriendsOdno(){		   
 		  }
+		  
+		  function LoadAd(){
+		  FAPI.UI.loadAd();
+                          }
 
 
 		
 			 
-		function GetItem10(){ 
-	      FAPI.UI.showPayment("Яблоко", "Это очень вкусно!", "sale_item_75", 75, null, null, "ok", "true");
+		 function LoadOdno() {
+var rParams = FAPI.Util.getRequestParameters();
+FAPI.init(rParams["api_server"], rParams["apiconnection"],
+          /*
+          * Первый параметр:
+          * функция, которая будет вызвана после успешной инициализации.
+          */
+          function() {
+              alert("Инициализация прошла успешно");
+			  LoadAd();
+              // здесь можно вызывать методы API
+          },
+          /*
+          * Второй параметр:
+          * функция, которая будет вызвана, если инициализация не удалась.
+          */
+          function(error) {
+              alert("Ошибка инициализации");
+          }
+);
+       }
 
-      }
-            
-function GetItem15(){ 
+    function API_callback(message) {
+	
 
-      }
-	  
-	  function GetItem25(){ 
-           OKSDK.Ads.init(null, adsCallback);
-      }
-	  
-	  function adsCallback(message) {
         if (!message.data) {
             return;
         }
@@ -499,66 +449,70 @@ function GetItem15(){
         }
 
         switch (data.call.method) {
-            case "init":
+		
+		case "ready":
                 if (data.result.status === "ok") {
-                    alert("OK Ads initialization complete");
-					OKSDK.Ads.prepareMidroll();
-                    OKSDK.Ads.State.init = true;
+					window.alert("Ad was Loaded");
                 } else {
-                    alert("OK Ads failed to initialize");
-                    OKSDK.Ads.State.init = false;
+
                 }
                 break;
-            case "prepare":
+		
+            case "complete":
+                if (data.result.status === "ok") {
+                    alert(" OK Ads initialization complete");
+					SendMessageToUnityRewardAdShowed();
+					LoadAd();
+                    
+                } else {
+                    alert(" OK Ads failed to initialize");
+                    
+                }
+                break;
+            case "skip":
                 if (data.result.status === "ok") {
                     if (data.result.code === "ready") {
-                        alert("Ad is ready to be shown");
-                        OKSDK.Ads.State.ready = true;
+                        alert(" Ad is ready to be shown");
+                        
                     }
                 } else {
                     alert("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    OKSDK.Ads.State.ready = false;
+                    
                 }
-                break;
-            case "show":
-                ads_state.frame_element.style.display = "none";
-                if (data.result.status === "ok") {
-                    if (data.result.code === "complete") {
-                        alert("Ad is successfully shown");
-                        OKSDK.Ads.State.ready = false;
-                    }
-                } else {
-                    alert("An ad can't be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    OKSDK.Ads.State.ready = false;
-                }
-                break;
+                break;          
         }
     }
-	  
-	   
-	  
-	  
-	  function GetItem45(){ 
-      }
-	  
-	  
-	  function GetItem80(){ 
+
+    function GetItem10() {
         
-      } 
-	  
-	  
-	  function GetItem140(){ 
-          
+    }
 
-      }
-	  
-	  
-	  function GetItemNoAds(){ 
+    function GetItem15() {
+        
+    }
 
-      }
+    function GetItem25() {
+        
+    }
+
+    function GetItem45() {
+        
+    }
+
+    function GetItem80() {
+        
+    }
+
+    function GetItemNoAds() {
+        
+    }
+
+    
 	  
 	  function ShowRewardAdOdno(){
-	  OKSDK.Ads.showMidroll(adsCallback)
+
+	  FAPI.UI.showLoadedAd(API_callback);
+	  
 	  }
 	  
        
@@ -613,6 +567,8 @@ function GetItem15(){
 	  function SendMessageToUnityRewardAdShowed(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'CheckrewardAd');
 	  }
+	  
+
 	  
 	
 
@@ -1086,7 +1042,8 @@ function GetItem15(){
 				loadingText.remove()
 				loadingTextInfo.remove()
 				canvasSpine.remove()
-				InitOdno();
+				LoadOdno();
+				
 							 
             })
             .catch((error) => {

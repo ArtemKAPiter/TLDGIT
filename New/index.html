@@ -423,7 +423,10 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		  }
 		  
 		  function InviteFriendsOdno(){		   
-		  FAPI.UI.showInvite("Я играю в Tower Of Magic!, давай со мной", "arg1=val1",API_callback);
+		  FAPI.UI.showInvite("Я играю в Tower Of Magic!, давай со мной",API_callback);		 
+    }
+
+		  
 		  }
 		  
 		  function LoadAd(){
@@ -482,12 +485,14 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		
 		
 		case 'showInvite':  // Поделиться с другом игру
-		if(data == '1234567890'){
+		if(data == '442790043078'){
+		alert("Has Friends + added");
 		SetSocialFunction();
 		}
-		if(data == '1234567890,1234567891'){
-		SetSocialFunction();
+		else{
+		alert("No Friends");
 		}
+		
 		
 		break;
 		
@@ -555,17 +560,17 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 
     function GetItem10() {
 	_purchaseindex = 10;
-    FAPI.UI.showPayment("170 Кристаллов ", "Вы получаете 170 кристаллов на свой счёт!", 7, 75, null, null, "ok", "{'amount':'75'}");
+    FAPI.UI.showPayment("170 Кристаллов ", "Вы получаете 170 кристаллов на свой счёт!", 7, 75, null, null, "ok", API_callback);
     }
 
     function GetItem15() {
         _purchaseindex = 15;
-    FAPI.UI.showPayment("360 Кристаллов ", "Вы получаете 360 кристаллов на свой счёт!", 15, 1, null, null, "ok", "{'amount':'110'}");
+    FAPI.UI.showPayment("360 Кристаллов ", "Вы получаете 360 кристаллов на свой счёт!", 15, 1, null, null, "ok", API_callback);
     }
 
     function GetItem25() {
 	_purchaseindex = 25;
-        FAPI.UI.showPayment("950 Кристаллов ", "Вы получаете 950 кристаллов на свой счёт!", 25, 180, null, null, "ok", "{'amount':'180'}");
+        FAPI.UI.showPayment("950 Кристаллов ", "Вы получаете 950 кристаллов на свой счёт!", 25, 180, null, null, "ok", API_callback);
     }
 
     function GetItem45() {

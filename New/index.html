@@ -227,14 +227,14 @@
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/v0.25.loader.js'
+                    unityLoader.src = 'Build/v0.27.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/v0.25.data',
-                                frameworkUrl: 'Build/v0.25.framework.js',
-                                codeUrl: 'Build/v0.25.wasm',
+                                dataUrl: 'Build/v0.27.data',
+                                frameworkUrl: 'Build/v0.27.framework.js',
+                                codeUrl: 'Build/v0.27.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'BearsComGames',
                                 productName: 'CorgiTown',

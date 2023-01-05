@@ -66,7 +66,7 @@
         </div>
         <script src="./instant-games-bridge.js"></script>
 		<script src="./dist/spine-webgl.js"></script>
-		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>							 
+								 
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -107,7 +107,7 @@
 				gl = context.gl;
 
 				renderer = new spine.SceneRenderer(canvasSpine, context);
-				assetManager = new spine.AssetManager(context, "../assets/");
+				assetManager = new spine.AssetManager(context, "./assets/");
 				input = new spine.Input(canvasSpine);
 
 				assetManager.loadTextureAtlas(FILE.replace("-pro", "").replace("-ess", "") + "-pma.atlas");

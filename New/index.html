@@ -382,38 +382,7 @@
 
         
 		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		
-		  
-		  
-		  function CheckPlatformID(){
-		  SendURLToUnity();
-		  }
-		  function ShowInterAdOdno(){
-		  FAPI.UI.showAd();
-		  }
-		  
-		  
-		  function RateGameOdno(){
-		  FAPI.UI.showRatingDialog();
-		  }
-		  
-		  function InviteFriendsOdno(){		   
-		  }
-		  
-		  function LoadAd(){
-		  console.log("Ad was Loaded");
-		  FAPI.UI.loadAd();
-                          }
-
-
-		
+	
 			 
 		 function LoadOdno() {
 var rParams = FAPI.Util.getRequestParameters();
@@ -436,108 +405,82 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
           }
 );
        }
+	   
+	   
+	   	
+		  
+		  
+		  function CheckPlatformID(){
+		  SendURLToUnity();
+		  }
+		  function ShowInterAdOdno(){
+		  FAPI.UI.showAd();
+		  }
+		  
+		  
+		  function RateGameOdno(){
+		  FAPI.UI.showRatingDialog();
+		  }
+		  
+		  function InviteFriendsOdno(){		   
+		  }
+		  
+		  function LoadAd(){
+		  FAPI.UI.loadAd(API_callback);
+		  }
+		  
+		  function ShowRewardAdOdno(){
+	  FAPI.UI.showLoadedAd(API_callback);
+	  }
+	   
+	   
+	   
 
-    function API_callback(message) {
-	
-
-        if (!message.data) {
-            return;
-        }
-
-        var data = JSON.parse(message.data);
-
-        if (!data.call || !data.call.method) {
-            return;
-        }
-
-        if (!data.result || !data.result.status) {
-            return;
-        }
-
-        switch (data.call.method) {
+   var API_callback = function(method, result, data){
+        switch(method){
+		case 'loadAd':
+		if(data == 'ready'){
+		alert("ad was loaded");
+		SendMessageToUnityAdWasLoaded();
+		}
+		else{
+		alert("ad was not loaded");
+		setTimeout(LoadAdNow,10000);
+		}
+		break;
 		
-		case "ready":
-                if (data.result.status === "ok") {
-					window.alert("Ad was Loaded");
-                } else {
-
-                }
-                break;
+		case 'showLoadedAd':
 		
-            case "complete":
-                if (data.result.status === "ok") {
-                    alert(" OK Ads initialization complete");
-					SendMessageToUnityRewardAdShowed();                   
-                } else {
-                    alert(" OK Ads failed to initialize");
-                    
-                }
-                break;
-            case "skip":
-                if (data.result.status === "ok") {
-                    if (data.result.code === "ready") {
-                        alert(" Ad is ready to be shown");
-                        
-                    }
-                } else {
-                    alert("Ad is not ready to be shown. Status: " + data.result.status + ". Code: " + data.result.code);
-                    
-                }
-                break;  
-              
+		if(data == 'not_prepared'){
+		alert("ad was not showed,not_prepared");	
+		}
+		
+		if(data == 'skip'){
+		alert("ad was not showed,skip");	
+		}
+		
+		if(data == 'complete'){
+		if(result == 'ok'){
+		alert("ad was showed");
+		SendMessageToUnityRewardAdShowed();
+		LoadAd();
+		}
+		}
+		
+		break;
+		
+		
+		
 
-               case "{'amount':'5'}" :
-                if (data.result.status === "ok") {
-				switch(_purchaseindex){
-				  
-				  case 10:
-				  SendMessageToUnity10();
-				  break;
-				  
-				  case 15:
-				SendMessageToUnity15();
-				break;
-				
-				case 25:
-				SendMessageToUnity25();
-				break;
-				
-				case 45:
-				SendMessageToUnity45();
-				break;
-				
-				case 80:
-				SendMessageToUnity80();
-				break;
-				
-				case 140:
-				SendMessageToUnity140();
-				break;
-				
-				case 200:
-				SendMessageGetItemNoAds();
-				break;
-				
-				}
-                                            
-                } else {
-                    alert("Bad Purchase");
-                }
-                break;  				
-				
-				
-				case "cancel" :
-                if (data.result.status === "error") {
-                        alert("Bad Purchase");
-						console.log("Bad Purchase");
-                } else {
-                    alert("Bad Purchase");
-					console.log("Bad Purchase");
-                }
-                break;
-				
-        }
+		
+		
+		}
     }
+
+	
+        
+
+    
 
     function GetItem10() {
 	_purchaseindex = 10;
@@ -576,9 +519,7 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 
     
 	  
-	  function ShowRewardAdOdno(){
-	  FAPI.UI.showLoadedAd(API_callback);
-	  }
+	  
 	  
        
 	  
@@ -630,11 +571,18 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 	  }
 	  
 	  function SendMessageToUnityRewardAdShowed(){
-	  unityInstance.SendMessage('BuyMoneyVK', 'CheckrewardAd');
+	  unityInstance.SendMessage('BuyMoneyVK', 'GetRewardAdMoney');
+	  setTimeout(LoadAdNow, 10000)
+	  }
+	  
+	  function SendMessageToUnityAdWasLoaded(){
+	  unityInstance.SendMessage('BuyMoneyVK', 'ButtonInteractable');
 	  }
 	  
 
-	  
+	  function LoadAdNow(){
+	  FAPI.UI.loadAd(API_callback);
+	  }
 	
 
 

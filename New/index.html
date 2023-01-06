@@ -425,11 +425,20 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		  FAPI.UI.showRatingDialog(API_callback);
 		  }
 		  
-		  function InviteFriendsOdno(){		   
+		  function InviteFriendsOdno(options){
 
-
-		 
+             var callback = function(status, result, data){
+        if(result.length > 2){
+            FAPI.UI.showNotification("Поиграй в мою игру!" + options, "arg1=val1", result[0] + ";" + result[1],API_callback);
+            // в случае успеха возвращает третьим параметром строку, в которой через запятую указаны id друзей, которым отправлено оповещение
+        } else {
+            alert("Не хватает друзей для примера");
+        }
     }
+    FAPI.Client.call({"method":"friends.get"},callback);
+
+
+                    }
 
 		  
 		  
@@ -489,16 +498,16 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		break;
 		
 		
-		case 'showInvite':  // Поделиться с другом игру
-		if(result == 'cancel'){
-		if(data == 'null'){
-			alert('пользователь отменил отправку инвайта');
+		case 'showNotification':  // Поделиться с другом игру
+		if(result == 'ok'){
+		if(data.length > 0){
+			alert('отправил уведомление одному другу');
 		}
 		}	
 			
-		if(result == 'ok'){
-		if(data.length > 0){
-			alert('отправил инвайт одному другу');
+		if(result == 'cancel'){
+		if(data == 'null'){
+			alert('пользователь отменил отправку инвайта');
 		}
 		}
 
@@ -506,13 +515,13 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
 		
 		
 		case 'showPayment':  // Покупки
-		if(data == "{'amount':'75'}"){
+		if(data == "75"){
 		if(result == 'ok'){
 		SendMessageToUnity10();
 		}
 		}
 		
-		if(data == "{'amount':'110'}"){
+		if(data == "110"){
 		if(result == 'ok'){
 		SendMessageToUnity15();
 		}

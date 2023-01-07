@@ -137,6 +137,8 @@
 				canvasSpine.width = canvasSpine.clientWidth; 
 				canvasSpine.height = canvasSpine.clientHeight;
 				
+				SCALE = (canvasSpine.height/1041.11).toFixed(2);
+				
 				//canvasSpine.width = '100%'; 
 				//canvasSpine.height = '100%';
 				
@@ -374,14 +376,14 @@
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/v0.43.loader.js'
+                    unityLoader.src = 'Build/v0.44.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/v0.43.data',
-                                frameworkUrl: 'Build/v0.43.framework.js',
-                                codeUrl: 'Build/v0.43.wasm',
+                                dataUrl: 'Build/v0.44.data',
+                                frameworkUrl: 'Build/v0.44.framework.js',
+                                codeUrl: 'Build/v0.44.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'BearsComGames',
                                 productName: 'CorgiTown',

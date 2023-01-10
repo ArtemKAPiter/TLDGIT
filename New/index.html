@@ -105,8 +105,16 @@
 		<canvas class=block id="cnv" width="100%" height="100%">Browser Not Supported :(</canvas>
 		<canvas id="canvas" class="fullscreen"></canvas>
 		
+		
+       
           </head>
 
+         <head>
+    <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+</head>
+<body></body>
+<script src="./instant-games-bridge-vk-banner-extension.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 		
 
 
@@ -360,7 +368,7 @@
 
 						if (unityInstance) {
 							unityInstance.SendMessage('Bridge', 'OnInitializationCompleted', 'true')
-							
+							LoadVKBridge();
 						}
 					})
 					.catch(error => {
@@ -371,44 +379,193 @@
 }
 
 
+
+function LoadVKBridge(){
+canvas.style.width  = '100%'
+
+      vkBridge.send('VKWebAppInit')
+  .then((data) => { 
+    if (data.result) {
+      
+	 
+    } else {
+      console.log("error");
+    }
+  })
+  .catch((error) => {
+console.log("error 23");
+    console.log(error);
+  });
+}
+		
+
+
+		
+		function LoadVkBanner()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+		   
+		    
+					canvas.style.height = '94%';
+})
+        })
+        }
+		
+		function HorizontalLoadVk()
+		{
+vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                    let position = 'bottom' // Supported values: top, bottom. Default: bottom.
+                    bridgeExtensions.vk.banner.show(data, position)
+					
+					document.getElementById("vk-banner-container").style.zoom = "0.5";
+					canvas.style.height = '88%';
+})
+        })
+        }
+		
+
+						
+
+		
+		
+		function HideVkBanner(){
+            vkBridge
+        .send('VKWebAppInit')
+        .then(() => {
+
+            // show banner
+            vkBridge
+                .send('VKWebAppGetAds')
+                .then(data => {
+                                bridgeExtensions.vk.banner.hide()
+								console.log('Баннера нету.', data) 
+								canvas.style.width  = '100%'
+		                                                canvas.style.height  = '100%'
+                })
+        })
+        }
+		
+     
+	  
+	 
 		
 			 
 		function GetItem10(){ 
-		SendMessageToUnity10();
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_10', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity10();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
             
 function GetItem15(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_15', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity15();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
 	  
 	  function GetItem25(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_25', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity25();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
 	  
 	  
 	  function GetItem45(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_45', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity45();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
 	  
 	  
 	  function GetItem80(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_80', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity80();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
 	  
 	  
 	  function GetItem140(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_140', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageToUnity140();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
 	  
 	  
 	  function GetItemNoAds(){ 
-
+vkBridge.send('VKWebAppShowOrderBox', 
+  { 
+    type: 'item', 
+    item: 'sale_item_noAds', 
+  })
+  .then( (data) => {
+	  console.log('Покупка состоялась.', data) 
+	  SendMessageGetItemNoAds();
+	  }) 
+  .catch( (e) => {console.log('Ошибка!', e) });
       }
-	  
-	  
+			
+			   
+			
 
-	  
-							  
 
 			 function SendMessageToUnity10(){ 
          unityInstance.SendMessage('BuyMoneyVK', 'GetMoney10');
@@ -446,8 +603,6 @@ function GetItem15(){
          function NewPortrait(){
 	  unityInstance.SendMessage('BuyMoneyVK', 'NewPortrait');
 	  }
-	  
-	
 
 
 

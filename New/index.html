@@ -363,8 +363,10 @@
 							'visibility_state_changed', 
 							state => { 
 								if (unityInstance) {
+								unityInstance.SendMessage('BuyMoneyVK', 'OnVisibilityStateChanged', state) 
+								alert(state);
 									unityInstance.SendMessage('Bridge', 'OnVisibilityStateChanged', state) 
-									unityInstance.SendMessage('BuyMoneyVK', 'GameVisibility', state) 
+									
 								}
 							})
 

@@ -15,6 +15,7 @@
                 margin: 0px;
 
 		    
+		    
             }
 			@font-face {
 				font-family: 'font1';
@@ -363,6 +364,7 @@
 							state => { 
 								if (unityInstance) {
 									unityInstance.SendMessage('Bridge', 'OnVisibilityStateChanged', state) 
+									unityInstance.SendMessage('BuyMoneyVK', 'GameVisibility', state) 
 								}
 							})
 

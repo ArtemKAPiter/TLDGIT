@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Pandagame</title>
+        <title>FortuneWheel</title>
         <style>
             html, body {
                 width: 100%;
@@ -12,7 +12,7 @@
                 margin: 0px;
             }
             .fullscreen {
-                background: #383838;
+                background: #FFE8D4;
                 width: 100%;
                 height: 100%;
                 position: absolute;
@@ -28,7 +28,7 @@
                 align-items: center;
             }
             #icon {
-                max-width: 120px;
+                max-width: 260px;
                 border-radius: 10px;
                 margin-bottom: 20px;
             }
@@ -37,18 +37,18 @@
                 width: 90%;
                 max-width: 250px;
                 height: 20px;
-                background: #242424;
+                background: #938484;
                 padding: 5px;
             }
             #progress-bar-fill {
                 border-radius: 3px;
                 width: 0%;
                 height: 100%;
-                background: #FF9A00;
+                background: #2FEBF7;
             }
         </style>
     </head>
-    <body>
+   <body>
         <canvas id="canvas" class="fullscreen"></canvas>
         <div id="loading-overlay" class="fullscreen">
             <img id="icon" src="./icon.png" />
@@ -132,7 +132,7 @@
                     bridge.advertisement.on('rewarded_state_changed', state => sendMessageToUnity('OnRewardedStateChanged', state))
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
-                    let unityLoader = document.createElement('script')
+                   let unityLoader = document.createElement('script')
                     unityLoader.src = 'Build/Cow game.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
@@ -162,7 +162,7 @@
                 })
                 .catch(error => console.error(error))
             
-
+                   
             // platform
             window.getPlatformId = function() {
                 return bridge.platform.id
@@ -284,6 +284,22 @@
                     .catch(error => {
                         sendMessageToUnity('OnGetStorageDataFailed', key)
                     })
+            }
+
+            function ShowBannerAd(){
+                vkBridge.send('VKWebAppShowBannerAd', {
+  banner_location: 'bottom',
+can_close: false
+  })
+ .then((data) => { 
+    if (data.result) {
+      // Баннерная реклама отобразилась
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
             }
 
             window.setStorageData = function(key, value, storageType) {
@@ -522,6 +538,7 @@
                         sendMessageToUnity('OnLeaderboardGetScoreCompleted', 'false')
                     })
             }
+            
 
             window.leaderboardGetEntries = function(options) {
                 bridge.leaderboard.getEntries(JSON.parse(options))

@@ -287,21 +287,6 @@
                     })
             }
 
-            function ShowBannerAd(){
-                vkBridge.send('VKWebAppShowBannerAd', {
-  banner_location: 'bottom',
-can_close: false
-  })
- .then((data) => { 
-    if (data.result) {
-      // Баннерная реклама отобразилась
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
-            }
 
             window.setStorageData = function(key, value, storageType) {
                 let keys = key.split(STORAGE_KEYS_SEPARATOR)

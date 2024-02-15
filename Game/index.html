@@ -190,6 +190,24 @@
                 return bridge.platform.language
             }
 
+            vkBridge.subscribe(eventHandler);
+
+            function eventHandler(e){
+                const {type, data} = e.detail;
+                switch(type){
+                    case 'VKWebAppViewHide' :
+                    alert("hidden");
+                    break;
+
+                    case 'VKWebAppViewRestore' :
+                    alert("visible");
+                    break;
+
+                }
+            }
+
+
+
             window.getPlatformPayload = function() {
                 let payload = bridge.platform.payload
                 if (typeof payload === 'string') {

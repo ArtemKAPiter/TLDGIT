@@ -151,14 +151,14 @@
                     }
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/Cow game.loader.js'
+                    unityLoader.src = 'Build/Game.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/Cow game.data',
-                                frameworkUrl: 'Build/Cow game.framework.js',
-                                codeUrl: 'Build/Cow game.wasm',
+                                dataUrl: 'Build/Game.data',
+                                frameworkUrl: 'Build/Game.framework.js',
+                                codeUrl: 'Build/Game.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'DefaultCompany',
                                 productName: 'Pandagame',
@@ -189,8 +189,6 @@
             window.getPlatformLanguage = function() {
                 return bridge.platform.language
             }
-
-
 
             window.getPlatformPayload = function() {
                 let payload = bridge.platform.payload
